@@ -308,9 +308,6 @@ const Badges = () => {
           </Link>
         </div></div>
       </div>);
-  );};
 };
-export default Badges;
-
 
 export default Badges;
