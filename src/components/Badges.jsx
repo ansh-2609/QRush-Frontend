@@ -142,11 +142,8 @@ const Badges = () => {
     setBadges(filtered);
 
     // Calculate user stats
-    // const unlocked = allBadges.filter(badge => badge.unlocked).length;
     const unlocked = userBadges.filter(badge => badge.unlocked === 1).length;
-    // const unlocked = allBadges.filter(badge => badge.unlocked === 1).length;
-
-    const total = userBadges.length;
+    const total = allBadges.length;
     const completionRate = Math.round((unlocked / total) * 100);
 
     setUserStats({
@@ -160,9 +157,9 @@ const Badges = () => {
 
       return {
           ...badge,
-          unlocked: userBadge ? userBadge.unlocked : 0,
-          progress: userBadge ? userBadge.progress : 0,
-          date_unlocked: userBadge ? userBadge.date_unlocked : null
+          unlocked: userBadge?.unlocked || 0,
+          progress: userBadge?.progress || 0,
+          date_unlocked: userBadge?.date_unlocked || null
         };
       });
       setBadgesData(merged);
