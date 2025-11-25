@@ -290,7 +290,7 @@ const Badges = () => {
         </div>
 
         {/* Empty State */}
-        {badges.length === 0 && (
+        {badgesData.length === 0 && (
           <div className="text-center py-12">
             <div className="text-6xl mb-4">🎯</div>
             <h3 className="text-xl font-semibold text-gray-900 mb-2">No badges found</h3>
@@ -306,8 +306,10 @@ const Badges = () => {
           >
             Start Earning Badges
           </Link>
-        </div></div>
-      </div>);
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Badges;
