@@ -20,8 +20,10 @@ const Badges = () => {
     const loadBadges = async () => {
       try {
         const badges = await fetchBadges();
+        console.log("All Badges:", badges); // DEBUG
         setAllBadges(badges);
         const data = await fetchBadgesByUser(userId);
+        console.log("User Badges:", data); // DEBUG
         setUserBadges(data);
 
       } catch (error) {
@@ -30,7 +32,7 @@ const Badges = () => {
     };
 
     loadBadges();
-  }, []);
+  }, [userId]);
 
 
   // Mock data - replace with actual API calls
@@ -134,27 +136,11 @@ const Badges = () => {
   // ];
 
   useEffect(() => {
-    // Filter badges based on selected category
-    const filtered = selectedCategory === "all" 
-      ? allBadges 
-      : allBadges.filter(badge => badge.category === selectedCategory);
-    
-    setBadges(filtered);
-
-    // Calculate user stats
-    const unlocked = userBadges.filter(badge => badge.unlocked === 1).length;
-    const total = allBadges.length;
-    const completionRate = Math.round((unlocked / total) * 100);
-
-    setUserStats({
-      totalBadges: total,
-      unlockedBadges: unlocked,
-      completionRate: completionRate
-    });
-
+    // First, merge all badges with user badge data
     const merged = allBadges.map(badge => {
       const userBadge = userBadges.find(ub => ub.badge_id === badge.id);
-
+      console.log("Merging badge:", badge.name, "unlocked:", userBadge?.unlocked); // DEBUG
+      
       return {
           ...badge,
           unlocked: userBadge?.unlocked || 0,
@@ -162,7 +148,24 @@ const Badges = () => {
           date_unlocked: userBadge?.date_unlocked || null
         };
       });
-      setBadgesData(merged);
+    
+    // Then filter based on category
+    const filtered = selectedCategory === "all" 
+      ? merged 
+      : merged.filter(badge => badge.category === selectedCategory);
+    
+    setBadgesData(filtered);
+
+    // Calculate user stats
+    const unlocked = merged.filter(badge => badge.unlocked === 1).length;
+    const total = allBadges.length;
+    const completionRate = total > 0 ? Math.round((unlocked / total) * 100) : 0;
+
+    setUserStats({
+      totalBadges: total,
+      unlockedBadges: unlocked,
+      completionRate: completionRate
+    });
   }, [selectedCategory, userBadges, allBadges]);
 
   const getRarityColor = (rarity) => {
@@ -303,10 +306,11 @@ const Badges = () => {
           >
             Start Earning Badges
           </Link>
-        </div>
-      </div>
-    </div>
-  );
+        </div></div>
+      </div>);
+  );};
 };
+export default Badges;
+
 
 export default Badges;
