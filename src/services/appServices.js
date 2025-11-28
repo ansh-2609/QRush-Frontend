@@ -175,34 +175,7 @@ export const setPlayCount = async (category) => {
   }
 }
 
-export const fetchCompleteStatus = async(category) => {
-  try {
-    const response = await fetch(`${API_URL}/api/completestatus/${category}`, {method : "GET"});
-    if (!response.ok) {
-      throw new Error(`Network response was not ok`);
-    }
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error(`Error fetching complete status:`, error);
-    throw error;
-  }
-}
 
-export const setCompleteStatus = async (category) => {
-  try {
-    const response = await fetch(`${API_URL}/api/completestatus/${category}`, { method: "PUT" });
-
-    if (!response.ok) {
-      throw new Error(`Network response was not ok`);
-    }
-    
-    return; 
-  } catch (error) { 
-    console.error(`Error updating complete status:`, error);
-    throw error;
-  }
-}
 export const fetchCStatus = async(category, userId) => {
   try {
     const response = await fetch(`${API_URL}/api/cstatus/${category}/${userId}`, {method : "GET"});

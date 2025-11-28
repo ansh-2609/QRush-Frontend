@@ -19,12 +19,21 @@ const Badges = () => {
   useEffect(() => {
     const loadBadges = async () => {
       try {
+        console.log("userId from Redux:", userId);
         const badges = await fetchBadges();
-        console.log("All Badges:", badges); // DEBUG
+        console.log("All badges from API:", badges);
         setAllBadges(badges);
-        const data = await fetchBadgesByUser(userId);
-        console.log("User Badges:", data); // DEBUG
-        setUserBadges(data);
+        if (userId) {
+          try {
+            const data = await fetchBadgesByUser(userId);
+            console.log("User badges from API:", data);
+            setUserBadges(data);
+          } catch (err) {
+            console.error("Error in fetchBadgesByUser:", err);
+          }
+        } else {
+          console.log("No userId available!");
+        }
 
       } catch (error) {
         console.error("Error fetching badges:", error);
@@ -136,29 +145,31 @@ const Badges = () => {
   // ];
 
   useEffect(() => {
-    // First, merge all badges with user badge data
+    // Merge all badges with user badge data
     const merged = allBadges.map(badge => {
       const userBadge = userBadges.find(ub => ub.badge_id === badge.id);
-      console.log("Merging badge:", badge.name, "unlocked:", userBadge?.unlocked); // DEBUG
-      
+      console.log(`Badge ${badge.id} (${badge.name}):`, { userBadge, unlocked: userBadge ? userBadge.unlocked : 0 });
+
       return {
           ...badge,
-          unlocked: userBadge?.unlocked || 0,
-          progress: userBadge?.progress || 0,
-          date_unlocked: userBadge?.date_unlocked || null
+          unlocked: userBadge ? userBadge.unlocked : 0,
+          progress: userBadge ? userBadge.progress : 0,
+          date_unlocked: userBadge ? userBadge.date_unlocked : null
         };
       });
-    
-    // Then filter based on category
+    console.log("Merged badges:", merged);
+    setBadgesData(merged);
+
+    // Filter badges based on selected category
     const filtered = selectedCategory === "all" 
       ? merged 
       : merged.filter(badge => badge.category === selectedCategory);
     
-    setBadgesData(filtered);
+    setBadges(filtered);
 
     // Calculate user stats
     const unlocked = merged.filter(badge => badge.unlocked === 1).length;
-    const total = allBadges.length;
+    const total = merged.length;
     const completionRate = total > 0 ? Math.round((unlocked / total) * 100) : 0;
 
     setUserStats({
@@ -236,7 +247,7 @@ const Badges = () => {
 
         {/* Badges Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {badgesData.map(badge => (
+          {badges.map(badge => (
             <div
               key={badge.id}
               className={`bg-white rounded-xl shadow-sm border-2 p-6 text-center transition-transform duration-200 hover:scale-105 ${
@@ -290,7 +301,7 @@ const Badges = () => {
         </div>
 
         {/* Empty State */}
-        {badgesData.length === 0 && (
+        {badges.length === 0 && (
           <div className="text-center py-12">
             <div className="text-6xl mb-4">🎯</div>
             <h3 className="text-xl font-semibold text-gray-900 mb-2">No badges found</h3>
