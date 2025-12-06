@@ -270,7 +270,7 @@ const QuizFinished = ({ score, totalQuestions, onRestart, onHome }) => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slideUp" style={{ animationDelay: "0.7s" }}>
             <button
               onClick={onRestart}
-              className={`group relative px-8 py-4 bg-gradient-to-r ${getGradientColors()} text-white font-bold rounded-xl shadow-lg hover:shadow-2xl ${getGlowColor()} transition-all duration-300 hover:scale-105 overflow-hidden`}
+              className={`group relative px-8 py-4 bg-gradient-to-r ${getGradientColors()} text-white font-bold rounded-xl cursor-pointer shadow-lg hover:shadow-2xl ${getGlowColor()} transition-all duration-300 hover:scale-105 overflow-hidden`}
             >
               <span className="relative z-10 flex items-center justify-center gap-2">
                 <span className="text-xl">🔁</span>
@@ -281,7 +281,7 @@ const QuizFinished = ({ score, totalQuestions, onRestart, onHome }) => {
             
             <button
               onClick={onHome}
-              className="group relative px-8 py-4 bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white font-bold rounded-xl hover:bg-white/20 transition-all duration-300 hover:scale-105 overflow-hidden"
+              className="group relative px-8 py-4 bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white font-bold rounded-xl hover:bg-white/20 transition-all duration-300 hover:scale-105 overflow-hidden cursor-pointer"
             >
               <span className="relative z-10 flex items-center justify-center gap-2">
                 <span className="text-xl">🏠</span>

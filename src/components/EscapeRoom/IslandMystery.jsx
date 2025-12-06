@@ -176,13 +176,13 @@ const IslandMysteryGame = () => {
             <div className="flex gap-3">
               <button
                 onClick={checkAnswer}
-                className="flex-1 bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg flex items-center justify-center transition-all transform hover:scale-105"
+                className="flex-1 bg-green-500 hover:bg-green-600 text-white cursor-pointer font-semibold py-3 px-6 rounded-lg flex items-center justify-center transition-all transform hover:scale-105"
               >
                 <FaUnlock className="mr-2" /> Submit
               </button>
               <button
                 onClick={() => setShowHint(!showHint)}
-                className="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-3 px-4 rounded-lg flex items-center justify-center"
+                className="bg-yellow-500 hover:bg-yellow-600 text-white cursor-pointer font-semibold py-3 px-4 rounded-lg flex items-center justify-center"
               >
                 <FaLightbulb className="mr-2" /> Hint
               </button>
@@ -226,13 +226,13 @@ const IslandMysteryGame = () => {
                 <button
                   onClick={goToPreviousPuzzle}
                   disabled={currentPuzzle === 0}
-                  className="w-full bg-gray-500 hover:bg-gray-600 disabled:bg-gray-300 text-white py-2 px-4 rounded-lg flex items-center justify-center disabled:cursor-not-allowed"
+                  className="w-full bg-gray-500 hover:bg-gray-600 disabled:bg-gray-300 text-white cursor-pointer py-2 px-4 rounded-lg flex items-center justify-center disabled:cursor-not-allowed"
                 >
                   <FaArrowLeft className="mr-2" /> Previous
                 </button>
                 <button
                   onClick={resetGame}
-                  className="w-full bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg flex items-center justify-center"
+                  className="w-full bg-red-500 hover:bg-red-600 text-white cursor-pointer py-2 px-4 rounded-lg flex items-center justify-center"
                 >
                   <FaRedo className="mr-2" /> Restart
                 </button>

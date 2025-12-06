@@ -291,7 +291,7 @@ const IdentifyFromImgContent = () => {
       <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-8">
         <button
           onClick={handleHomeClick}
-          className="flex items-center gap-2 mx-auto bg-white px-4 py-2 rounded-lg shadow hover:shadow-md transition-shadow"
+          className="flex items-center gap-2 mx-auto bg-white px-4 py-2 cursor-pointer rounded-lg shadow hover:shadow-md transition-shadow"
         >
           <FaHome className="text-gray-600" />
           <span className="text-gray-700">Home</span>
@@ -368,7 +368,7 @@ const IdentifyFromImgContent = () => {
             <button
               onClick={handleUseHint}
               disabled={usedHint}
-              className={`px-4 py-2 rounded-lg font-semibold transition-all w-full sm:w-auto text-center ${
+              className={`px-4 py-2 rounded-lg font-semibold cursor-pointer transition-all w-full sm:w-auto text-center ${
                 usedHint
                   ? "bg-gray-300 text-gray-500 cursor-not-allowed"
                   : "bg-amber-500 text-white hover:bg-amber-600"
@@ -387,7 +387,7 @@ const IdentifyFromImgContent = () => {
                 key={index}
                 onClick={() => handleAnswerSelect(option)}
                 disabled={showResult}
-                className={`p-4 text-left rounded-xl border-2 font-semibold transition-all duration-300 ${
+                className={`p-4 text-left rounded-xl border-2 cursor-pointer font-semibold transition-all duration-300 ${
                   showResult
                     ? option === imageQuizs.questions[imageQuizs.currentQuestionIndex].correctAnswer
                       ? "bg-green-100 border-green-500 text-green-700"
@@ -427,7 +427,7 @@ const IdentifyFromImgContent = () => {
             <div className="mt-6 flex justify-center">
               <button
                 onClick={handleNextQuestion}
-                className="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:shadow-lg transform hover:scale-105 transition-all flex items-center gap-2"
+                className="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:shadow-lg cursor-pointer transform hover:scale-105 transition-all flex items-center gap-2"
               >
                 {imageQuizs.currentQuestionIndex < imageQuizs.questions.length - 1
                   ? "Next Question"

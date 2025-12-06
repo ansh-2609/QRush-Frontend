@@ -93,7 +93,7 @@ const QuestionCard = ({ question, onAnswer, current, total, category }) => {
                 <button
                   key={idx}
                   onClick={() => onAnswer(opt)}
-                  className="group w-full py-4 px-6 rounded-xl bg-gradient-to-r from-gray-50 to-gray-100 text-gray-700 font-semibold text-left shadow-sm hover:shadow-lg hover:from-blue-500 hover:to-sky-500 hover:text-white transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] border border-gray-200 hover:border-transparent relative overflow-hidden"
+                  className="group w-full py-4 px-6 rounded-xl bg-gradient-to-r from-gray-50 to-gray-100 text-gray-700 font-semibold text-left shadow-sm hover:shadow-lg hover:from-blue-500 hover:to-sky-500 hover:text-white transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] border border-gray-200 hover:border-transparent relative overflow-hidden cursor-pointer"
                 >
                   <span className="absolute inset-0 bg-gradient-to-r from-blue-600/0 via-blue-600/0 to-sky-600/0 group-hover:from-blue-600/10 group-hover:via-blue-600/10 group-hover:to-sky-600/10 transition-all duration-500"></span>
                   <div className="flex items-center gap-3 relative z-10">

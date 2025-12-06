@@ -132,7 +132,7 @@ const QuizFinished = ({ totalPuzzles, timer, formatTime, resetGame }) => {
         </p>
         <button
           onClick={resetGame}
-          className="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105"
+          className="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 cursor-pointer"
         >
           <FaRedo className="inline mr-2" />
           Play Again

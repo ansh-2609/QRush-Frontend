@@ -209,7 +209,7 @@ const QuizResults = () => {
           <div className="space-y-4">
             <button
               onClick={handleRetryQuiz}
-              className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-all flex items-center justify-center gap-2"
+              className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white py-3 rounded-lg font-semibold hover:shadow-lg cursor-pointer transition-all flex items-center justify-center gap-2"
             >
               <FaTrophy className="text-lg" />
               Try Again
@@ -217,7 +217,7 @@ const QuizResults = () => {
             
             <button
               onClick={handleHomeClick}
-              className="w-full bg-gradient-to-r from-gray-600 to-gray-700 text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-all flex items-center justify-center gap-2"
+              className="w-full bg-gradient-to-r from-gray-600 to-gray-700 text-white py-3 cursor-pointer rounded-lg font-semibold hover:shadow-lg transition-all flex items-center justify-center gap-2"
             >
               <FaHome className="text-lg" />
               Back to Home

@@ -214,7 +214,7 @@ const Header = () => {
               px-3 sm:px-4 py-2 
               text-white bg-blue-600/20 backdrop-blur-sm 
               rounded-xl font-medium hover:bg-blue-500/30 
-              border border-blue-400/30 transition-colors
+              border border-blue-400/30 transition-colors cursor-pointer
             "
             onClick={handleSignUp}
           >
@@ -225,7 +225,7 @@ const Header = () => {
             className="
               px-3 sm:px-4 py-2 
               text-white bg-blue-600 rounded-xl font-medium 
-              hover:bg-blue-700 transition-colors
+              hover:bg-blue-700 transition-colors cursor-pointer
             "
             onClick={handleLogin}
           >
@@ -241,7 +241,7 @@ const Header = () => {
             className="
               px-3 sm:px-4 py-2 
               text-white bg-blue-600 rounded-xl font-medium 
-              hover:bg-blue-700 transition-colors
+              hover:bg-blue-700 transition-colors cursor-pointer
             "
             onClick={handleLogout}
           >
@@ -252,7 +252,7 @@ const Header = () => {
 
       {/* Mobile Menu Button */}
       <button
-        className="lg:hidden flex items-center text-white ml-2"
+        className="lg:hidden flex items-center text-white ml-2 cursor-pointer"
         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
       >
         {mobileMenuOpen ? <FiX size={26} /> : <FiMenu size={26} />}
@@ -307,7 +307,7 @@ const Header = () => {
                   w-full px-4 py-2 
                   text-white bg-blue-600/20 backdrop-blur-sm 
                   rounded-xl font-medium hover:bg-blue-500/30 
-                  border border-blue-400/30 transition-colors
+                  border border-blue-400/30 transition-colors cursor-pointer
                 "
                 onClick={handleSignUp}
               >
@@ -317,7 +317,7 @@ const Header = () => {
               <button
                 className="
                   w-full px-4 py-2 text-white bg-blue-600 
-                  rounded-xl font-medium hover:bg-blue-700 transition-colors
+                  rounded-xl font-medium hover:bg-blue-700 transition-colors cursor-pointer
                 "
                 onClick={handleLogin}
               >
@@ -330,7 +330,7 @@ const Header = () => {
             <button
               className="
                 w-full px-4 py-2 text-white bg-blue-600 
-                rounded-xl font-medium hover:bg-blue-700 transition-colors
+                rounded-xl font-medium hover:bg-blue-700 transition-colors cursor-pointer
               "
               onClick={handleLogout}
             >

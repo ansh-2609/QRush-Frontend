@@ -157,13 +157,13 @@ const Finished = ({ onHome }) => {
       <div className="flex gap-4 justify-center">
         <button
           onClick={handleRestart}
-          className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition duration-200"
+          className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition duration-200 cursor-pointer"
         >
           Try Again
         </button>
         <button
           onClick={onHome}
-          className="px-6 py-3 bg-gray-600 text-white font-semibold rounded-lg hover:bg-gray-700 transition duration-200"
+          className="px-6 py-3 bg-gray-600 text-white font-semibold cursor-pointer rounded-lg hover:bg-gray-700 transition duration-200"
         >
           Back to Home
         </button>

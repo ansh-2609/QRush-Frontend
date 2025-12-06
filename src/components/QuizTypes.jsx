@@ -15,13 +15,13 @@ import {
 const QuizTypes = () => {
   const quizTypes = [
     { 
-      name: "Escape Rooms", 
-      description: "Solve clues and complete tasks to 'escape' each themed room", 
-      key: "escape-rooms",
-      icon: FaDoorOpen, 
-      gradient: "from-rose-500 to-red-500",
-      bgGradient: "from-rose-50 to-red-50",
-      color: "rose"
+      name: "Identify from Image", 
+      description: "Guess the correct answer based on visual clues", 
+      key: "identify",
+      icon: FaImage,
+      gradient: "from-amber-500 to-yellow-500",
+      bgGradient: "from-amber-50 to-yellow-50",
+      color: "amber"
     },
     { 
       name: "Finish the Types", 
@@ -33,14 +33,14 @@ const QuizTypes = () => {
       color: "indigo"
     },
     { 
-      name: "Identify from Image", 
-      description: "Guess the correct answer based on visual clues", 
-      key: "identify",
-      icon: FaImage,
-      gradient: "from-amber-500 to-yellow-500",
-      bgGradient: "from-amber-50 to-yellow-50",
-      color: "amber"
-    }
+      name: "Escape Rooms", 
+      description: "Solve clues and complete tasks to 'escape' each themed room", 
+      key: "escape-rooms",
+      icon: FaDoorOpen, 
+      gradient: "from-rose-500 to-red-500",
+      bgGradient: "from-rose-50 to-red-50",
+      color: "rose"
+    },
   ];
 
   const dispatch = useDispatch();
@@ -130,18 +130,18 @@ const QuizTypes = () => {
               Not Sure Where to Start?
             </h3>
             <p className="text-gray-300 mb-6">
-              <span className="font-semibold text-blue-300">Multiple Choice</span> is great for beginners, 
-              while <span className="font-semibold text-orange-300">Timed Quizzes</span> offer an exciting challenge 
+              <span className="font-semibold text-blue-300">Identify from Image</span> is great for beginners, 
+              while <span className="font-semibold text-orange-300">Escape Rooms</span> offer an exciting challenge 
               for experienced players!
             </p>
             <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-300">
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 bg-blue-400 rounded-full"></div>
-                Multiple Choice - Beginner Friendly
+                Identify from Image - Beginner Friendly
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 bg-orange-400 rounded-full"></div>
-                Timed Quiz - Advanced Challenge
+                Escape Rooms - Tough Challenge
               </div>
             </div>
           </div>

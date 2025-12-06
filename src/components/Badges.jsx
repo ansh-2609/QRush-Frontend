@@ -139,7 +139,7 @@ const Badges = () => {
             <button
               key={category.id}
               onClick={() => setSelectedCategory(category.id)}
-              className={`px-4 py-2 rounded-full font-medium transition-colors duration-200 ${
+              className={`px-4 py-2 rounded-full font-medium transition-colors cursor-pointer duration-200 ${
                 selectedCategory === category.id
                   ? "bg-blue-600 text-white"
                   : "bg-white text-gray-700 hover:bg-gray-100 border border-gray-300"
