@@ -45,7 +45,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center pt-5 bg-gradient-to-br h-[77vh] from-blue-100 to-blue-300">
+    <div className="flex justify-center pt-5 bg-gradient-to-br min-h-screen from-blue-100 to-blue-300">
       <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md h-fit">
         <h2 className="text-2xl font-bold text-center text-blue-700 mb-6">
           Welcome Back

@@ -3,7 +3,7 @@ import WordOfTheDay from "../components/WordOfTheDay";
 
 const Home = () => {
   return (
-    <main className="relative min-h-[78vh] flex flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-blue-700 via-indigo-800 to-slate-900 text-center px-4 py-12">
+    <main className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-blue-700 via-indigo-800 to-slate-900 text-center px-4 py-12">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-72 h-72 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
