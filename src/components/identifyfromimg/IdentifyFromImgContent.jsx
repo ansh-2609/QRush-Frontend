@@ -5,83 +5,9 @@ import { nextQuestion, submitAnswer } from "../../store/imageQuizSlice";
 import { FaHeart, FaRegHeart, FaArrowRight, FaHome } from "react-icons/fa";
 import { setSubmitted } from "../../store/imageQuizSlice";
 
-// const landmarkQuestions = [
-//   {
-//     id: 1,
-//     image: "../../public/images/landmarks/EiffelTower.jpg",
-//     correctAnswer: "Eiffel Tower",
-//     options: ["Eiffel Tower", "Big Ben", "Statue of Liberty", "Colosseum"],
-//     hint: "Located in Paris, France"
-//   },
-//   {
-//     id: 2,
-//     image: "../../public/images/landmarks/Statue-of-Liberty.jpg",
-//     correctAnswer: "Statue of Liberty",
-//     options: ["Christ the Redeemer", "Statue of Liberty", "Mount Rushmore", "The Thinker"],
-//     hint: "Gift from France to the United States"
-//   },
-//   {
-//     id: 3,
-//     image: "../../public/images/landmarks/Great-Wall-of-China.jpg",
-//     correctAnswer: "Great Wall of China",
-//     options: ["Great Wall of China", "Hadrian's Wall", "Berlin Wall", "Western Wall"],
-//     hint: "Longest wall in the world"
-//   },
-//   {
-//     id: 4,
-//     image: "../../public/images/landmarks/Taj-Mahal.jpg",
-//     correctAnswer: "Taj Mahal",
-//     options: ["Taj Mahal", "Hagia Sophia", "Saint Basil's Cathedral", "Notre Dame"],
-//     hint: "White marble mausoleum in India"
-//   },
-//   {
-//     id: 5,
-//     image: "../../public/images/landmarks/Colosseum.jpg",
-//     correctAnswer: "Colosseum",
-//     options: ["Colosseum", "Pantheon", "Parthenon", "Roman Forum"],
-//     hint: "Ancient amphitheater in Rome"
-//   },
-//   {
-//     id: 6,
-//     image: "../../public/images/landmarks/Pyramids-of-Giza.jpg",
-//     correctAnswer: "Pyramids of Giza",
-//     options: ["Pyramids of Giza", "Stonehenge", "Machu Picchu", "Petra"],
-//     hint: "Ancient wonders in Egypt"
-//   },
-//   {
-//     id: 7,
-//     image: "../../public/images/landmarks/Sydney-Opera-House.jpg",
-//     correctAnswer: "Sydney Opera House",
-//     options: ["Sydney Opera House", "Guggenheim Museum", "Louvre", "Burj Al Arab"],
-//     hint: "Famous performing arts center in Australia"
-//   },
-//   {
-//     id: 8,
-//     image: "../../public/images/landmarks/Machu-Picchu.jpg",
-//     correctAnswer: "Machu Picchu",
-//     options: ["Machu Picchu", "Chichen Itza", "Angkor Wat", "Easter Island"],
-//     hint: "Inca citadel in Peru"
-//   },
-//   {
-//     id: 9,
-//     image: "../../public/images/landmarks/Christ-the-Redeemer.jpg",
-//     correctAnswer: "Christ the Redeemer",
-//     options: ["Christ the Redeemer", "Buddha Dordenma", "Spring Temple Buddha", "Ushiku Daibutsu"],
-//     hint: "Large statue in Rio de Janeiro"
-//   },
-//   {
-//     id: 10,
-//     image: "../../public/images/landmarks/Petra.jpg",
-//     correctAnswer: "Petra",
-//     options: ["Petra", "Cappadocia", "Mesa Verde", "Alhambra"],
-//     hint: "Rose-red city carved into rock in Jordan"
-//   }
-// ];
 
 const IdentifyFromImgContent = () => {
   const imageQuizs = useSelector((store) => store.imageQuiz);
-  console.log('imageQuizs', imageQuizs);
-  console.log('currentQuestionIndex', imageQuizs.currentQuestionIndex);
   const subcategory = imageQuizs.subcategory;
 
   const dispatch = useDispatch();
@@ -111,7 +37,6 @@ const IdentifyFromImgContent = () => {
     setShowResult(true);
 
     if (correct) {
-      // setScore(imageQuizs.score + (usedHint ? 5 : 10));
       dispatch(submitAnswer(imageQuizs.score + (usedHint ? 5 : 10)));
     } else {
       setLives(lives - 1);

@@ -6,9 +6,11 @@ import {
   FaBook,
   FaClock,
   FaSearch,
-  FaArrowLeft,
+  FaArrowLeft, 
   FaRedo,
 } from "react-icons/fa";
+import QuizFinished from "./QuizFinished";
+import { useSelector } from "react-redux";
 
 const AncientTempleGame = () => {
   const [currentPuzzle, setCurrentPuzzle] = useState(0);
@@ -19,154 +21,14 @@ const AncientTempleGame = () => {
   const [gameStatus, setGameStatus] = useState("playing");
   const [timer, setTimer] = useState(0);
 
-  const templePuzzles = [
-    {
-      id: 1,
-      title: "The Stone Symbols",
-      scenario: "You find a wall engraved with four glowing symbols: 🌞 🌙 🌟 🔥. A carving reads, 'Light guides the worthy.'",
-      clues: [
-        "The inscription mentions 'light'.",
-        "Which of these symbols represents the source of daylight?",
-      ],
-      answer: "sun",
-      solution: "The Sun (🌞) symbolizes light — the first symbol to press.",
-      hint: "It shines in the sky each day.",
-      difficulty: "Easy",
-      theme: "temple",
-    },
-    {
-      id: 2,
-      title: "The Path of Shadows",
-      scenario: "Three doors stand ahead: Past, Present, and Future. A mural shows the sun casting a shadow behind a figure.",
-      clues: [
-        "A shadow is a remnant of what has already occurred.",
-        "The sun is behind the figure — just like the past.",
-      ],
-      answer: "past",
-      solution: "The mural implies the 'Past' door is correct.",
-      hint: "The shadow points backward.",
-      difficulty: "Easy",
-      theme: "temple",
-    },
-    {
-      id: 3,
-      title: "The Number Stones",
-      scenario: "Three stones read: 1984, 2001, 2020. The fourth stone is blank. The inscription says: 'The wisdom of time grows by 17, 19, 21…'",
-      clues: [
-        "The differences are +17 and +19.",
-        "Add +21 to the last number.",
-      ],
-      answer: "2041",
-      solution: "1984 + 17 = 2001, 2001 + 19 = 2020, 2020 + 21 = 2041.",
-      hint: "Continue the pattern of increasing gaps.",
-      difficulty: "Medium",
-      theme: "temple",
-    },
-    {
-      id: 4,
-      title: "The Sacred Equation",
-      scenario: "Hieroglyphs on the wall: 🐍 = 3, 🌞 = 5, 🏺 = 7. Below it reads: 🐍 + 🌞 × 🏺 = ?",
-      clues: [
-        "Remember: multiplication before addition.",
-        "🐍 + (🌞 × 🏺)",
-      ],
-      answer: "38",
-      solution: "3 + (5 × 7) = 3 + 35 = 38.",
-      hint: "Follow standard math order.",
-      difficulty: "Medium",
-      theme: "temple",
-    },
-    {
-      id: 5,
-      title: "The Guardian’s Riddle",
-      scenario: "A statue speaks: 'I am taken from a mine, locked in a wooden case, never released unless you break me. What am I?'",
-      clues: [
-        "Used for writing on papyrus.",
-        "Dark in color, fragile.",
-      ],
-      answer: "pencil lead",
-      solution: "The answer is pencil lead (graphite).",
-      hint: "It’s inside every writing stick.",
-      difficulty: "Medium",
-      theme: "temple",
-    },
-    {
-      id: 6,
-      title: "The Sand Timer",
-      scenario: "An ancient hourglass drips sand. You notice that when it’s half empty, 5 minutes have passed. How long does it take to fully empty?",
-      clues: [
-        "Half = 5 minutes.",
-        "Full = double the time of half.",
-      ],
-      answer: "10",
-      solution: "It takes 10 minutes for all the sand to fall.",
-      hint: "Double it.",
-      difficulty: "Easy",
-      theme: "temple",
-    },
-    {
-      id: 7,
-      title: "The Four Statues",
-      scenario: "Four statues face different directions — North, South, East, West. A clue reads: 'The one who faces the rising sun guards the way.'",
-      clues: [
-        "The sun rises in the East.",
-        "Follow the guardian of dawn.",
-      ],
-      answer: "east",
-      solution: "The statue facing East marks the exit.",
-      hint: "Where does the sun rise?",
-      difficulty: "Easy",
-      theme: "temple",
-    },
-    {
-      id: 8,
-      title: "The Sacred Code",
-      scenario: "You see an engraving: I = 1, V = 5, X = 10, L = 50. The text below says 'XL + IX = ?'.",
-      clues: [
-        "XL = 40, IX = 9.",
-        "40 + 9 = ?",
-      ],
-      answer: "49",
-      solution: "In Roman numerals, XLIX = 49.",
-      hint: "Convert to numbers first.",
-      difficulty: "Medium",
-      theme: "temple",
-    },
-    {
-      id: 9,
-      title: "The Echo Chamber",
-      scenario: "You shout your name and hear it echo 3 times, each quieter. The last echo fades after 6 seconds. How long between each echo?",
-      clues: [
-        "3 echoes, total delay = 6 seconds.",
-        "The gap between echoes is equal.",
-      ],
-      answer: "2",
-      solution: "6 ÷ 3 = 2 seconds apart.",
-      hint: "Divide total time by number of echoes.",
-      difficulty: "Medium",
-      theme: "temple",
-    },
-    {
-      id: 10,
-      title: "The Golden Lock",
-      scenario: "The final gate has a code panel. Symbols glow: 🌞 (1), 🌙 (2), 🌟 (3). The inscription reads: 'Multiply the first two, add the third, and double the result.'",
-      clues: [
-        "(1 × 2) + 3 = ?",
-        "Then double your total.",
-      ],
-      answer: "10",
-      solution: "(1 × 2) + 3 = 5, then doubled = 10.",
-      hint: "Follow the steps in order.",
-      difficulty: "Medium",
-      theme: "temple",
-    },
-  ];
+  const templePuzzles = useSelector((store) => store.escapeRoom.questions);
 
   // Timer
   useEffect(() => {
+    if (gameStatus === "completed") return; 
     const interval = setInterval(() => setTimer((t) => t + 1), 1000);
     return () => clearInterval(interval);
-  }, []);
+  }, [gameStatus]);
 
   const formatTime = (s) => `${Math.floor(s / 60)}:${(s % 60).toString().padStart(2, "0")}`;
 
@@ -213,27 +75,12 @@ const AncientTempleGame = () => {
 
   if (gameStatus === "completed") {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-yellow-50 to-amber-100 flex items-center justify-center p-4">
-        <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full text-center">
-          <div className="text-6xl mb-4">🏺</div>
-          <h1 className="text-3xl font-bold text-amber-800 mb-2">
-            You Escaped the Ancient Temple!
-          </h1>
-          <p className="text-gray-700 mb-4">
-            You solved all {templePuzzles.length} puzzles!
-          </p>
-          <p className="text-xl font-semibold text-amber-600 mb-6">
-            Time: {formatTime(timer)}
-          </p>
-          <button
-            onClick={resetGame}
-            className="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105"
-          >
-            <FaRedo className="inline mr-2" />
-            Play Again
-          </button>
-        </div>
-      </div>
+      <QuizFinished
+        totalPuzzles={templePuzzles.length}
+        timer={timer}
+        formatTime={formatTime}
+        resetGame={resetGame}
+      />
     );
   }
 
@@ -402,7 +249,7 @@ const AncientTempleGame = () => {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         .shake {
           animation: shake 0.4s;
         }

@@ -29,15 +29,10 @@ const Signup = () => {
       setErrorMessages([]);
       try {
         const response = await setSignupInfo(formData);
-        console.log("formData", formData);
-        console.log("response", response);
         if(response.success) {
-          
-          console.log("User signed up successfully");
           navigate('/login');
         }
         else{
-          console.log("Signup failed with errors:", response.errorMessages);
           const errors = Array.isArray(response.errorMessages)
           ? response.errorMessages
           : [response.errorMessages];
@@ -105,15 +100,21 @@ const Signup = () => {
             className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400 outline-none"
           />
 
-          <input
-            type="password"
-            name="password"
-            placeholder="Enter your password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-            className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400 outline-none"
-          />
+          <div>
+            <input
+              type="password"
+              name="password"
+              placeholder="Enter your password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+              className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400 outline-none"
+            />
+            <p className="text-xs text-gray-500 mt-1 ml-2">
+              You can enter your own password and remember it.
+            </p>
+          </div>
+          
 
           <input
             type="password"
@@ -148,17 +149,3 @@ const Signup = () => {
 };
 
 export default Signup;
-
-
-
-
-// .custom(async (value, { req }) => {
-//       const [rows] = await User.fetchEmail();
-//       const emails = rows.map((u) => u.email);
-//       if(emails.includes(value)){
-//         throw new Error("Email is wrong");
-//       }
-//       else{
-//         return true;
-//       }
-//     })

@@ -1,135 +1,17 @@
-// const QuestionCard = ({ question, onAnswer, current, total, category }) => {
-
-
-//   function capitalizeFirstLetter(category) {
-//     return category.charAt(0).toUpperCase() + category.slice(1)
-//   }
-
-//   if (!question) {
-//     return <p className="text-center">Loading question...</p>;
-//   }
-
-//   const options = [
-//     question.option_1,
-//     question.option_2,
-//     question.option_3,
-//     question.option_4,
-//   ];
-  
-//   return (
-//     <>
-//       <div className="flex justify-center items-center bg-gray-100 py-8">
-//         <main className="text-center min-h-[calc(100vh-132px)]">
-//           <h2 className="text-4xl font-bold text-blue-800 mb-4">
-//              {capitalizeFirstLetter(category)} Quiz
-//           </h2>
-//           <div className="bg-white shadow-xl rounded-2xl p-6 max-w-xl w-full text-center">
-//             {/* Progress */}
-//             <p className="text-gray-500 text-sm mb-2">
-//               Question {current + 1} of {total}
-//             </p>
-
-//             {/* Question */}
-//             <h2 className="text-2xl font-bold mb-6">{question.question}</h2>
-
-//             {/* Options */}
-//             <div className="grid gap-4">
-//                {options.map((opt, idx) => (
-//               <button
-//                 key={idx}
-//                 onClick={() => onAnswer(opt)}
-//                 className="p-4 bg-gradient-to-r from-yellow-500 to-purple-600 text-white rounded-xl font-semibold hover:scale-105 transform transition duration-200 shadow-md cursor-pointer"
-//               >
-//                 {opt}
-//               </button>
-//             ))}
-//             </div>
-//           </div>
-//         </main>
-//       </div>
-//     </>
-//   );
-// };
-
-// export default QuestionCard;
-
-// const QuestionCard = ({ question, onAnswer, current, total, category }) => {
-//   function capitalizeFirstLetter(category) {
-//     return category.charAt(0).toUpperCase() + category.slice(1);
-//   }
-
-//   if (!question) {
-//     return (
-//       <div className="flex justify-center items-center h-screen">
-//         <p className="text-indigo-600 text-lg font-medium animate-pulse">
-//           Loading question...
-//         </p>
-//       </div>
-//     );
-//   }
-
-//   const options = [
-//     question.option_1,
-//     question.option_2,
-//     question.option_3,
-//     question.option_4,
-//   ];
-
-//   return (
-//     <section className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-indigo-50 via-blue-50 to-purple-100 px-4 py-10">
-//       <div className="w-full max-w-2xl bg-white/80 backdrop-blur-sm shadow-2xl rounded-3xl p-8 text-center border border-indigo-100 animate-fadeIn">
-//         {/* Category Title */}
-//         <h2 className="text-4xl font-extrabold text-indigo-700 mb-3 tracking-tight">
-//           {capitalizeFirstLetter(category)} Quiz
-//         </h2>
-
-//         {/* Progress */}
-//         <p className="text-gray-500 text-sm mb-6">
-//           Question <span className="font-semibold text-indigo-600">{current + 1}</span> of{" "}
-//           <span className="font-semibold text-indigo-600">{total}</span>
-//         </p>
-
-//         {/* Question */}
-//         <h3 className="text-2xl font-semibold text-gray-800 mb-8 leading-snug">
-//           {question.question}
-//         </h3>
-
-//         {/* Options */}
-//         <div className="grid gap-4">
-//           {options.map((opt, idx) => (
-//             <button
-//               key={idx}
-//               onClick={() => onAnswer(opt)}
-//               className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold text-lg shadow-md hover:shadow-xl hover:scale-[1.03] transition-transform duration-200 active:scale-[0.98] cursor-pointer"
-//             >
-//               {opt}
-//             </button>
-//           ))}
-//         </div>
-
-//         {/* Progress Bar */}
-//         <div className="mt-8 w-full bg-gray-200 rounded-full h-3 overflow-hidden">
-//           <div
-//             className="h-3 bg-gradient-to-r from-indigo-500 to-purple-500 transition-all duration-500"
-//             style={{ width: `${((current + 1) / total) * 100}%` }}
-//           ></div>
-//         </div>
-
-//         {/* Footer */}
-//         <p className="mt-6 text-sm text-gray-500 italic">
-//           Keep going — you're doing great! 💪
-//         </p>
-//       </div>
-//     </section>
-//   );
-// };
-
-// export default QuestionCard;
-
 
 const QuestionCard = ({ question, onAnswer, current, total, category }) => {
-  function capitalizeFirstLetter(category) {
-    return category.charAt(0).toUpperCase() + category.slice(1);
+
+  const heading = {
+    plants: "🌿 Plants Quiz",
+    animals: "🐾 Animals Quiz",
+    planets: "🪐 Planets Quiz",
+    technology: "💻 Technology Quiz",
+    science: "🔬 Science Quiz",
+    geography: "🌎 Geography Quiz",
+    generalknowledge: "🧠 General Knowledge Quiz",
+    travel: "✈️ Travel Quiz",
+    environment: "🌳 Environment Quiz",
+    space: "✨ Space Quiz",
   }
 
   if (!question) {
@@ -184,7 +66,7 @@ const QuestionCard = ({ question, onAnswer, current, total, category }) => {
           <div className="bg-gradient-to-r from-blue-600 via-blue-500 to-sky-500 px-8 py-6">
             <div className="flex items-center justify-between">
               <h2 className="text-3xl font-bold text-white tracking-tight">
-                {capitalizeFirstLetter(category)} Quiz
+                {heading[category]}
               </h2>
               <div className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">
                 <span className="text-white font-semibold text-sm">

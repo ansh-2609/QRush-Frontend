@@ -1,52 +1,4 @@
-// import { useDispatch } from "react-redux";
-// import { Link, useNavigate } from "react-router-dom";
-// import { setCategory } from "../store/finishQuizSlice";
 
-// const QuizTypes = () => {
-
-//   const quizTypes = [
-//     { name: "Multiple Choice", description: "Choose the correct answer from options.",  key:"multiple-choice" },
-//     { name: "True/False", description: "Quick quizzes with true or false answers.",  key:"true-false" },
-//     { name: "Timed Quiz", description: "Answer questions before the timer runs out.",  key:"timed" },
-//     { name: "Puzzle/Challenge", description: "Solve challenging quizzes.",  key:"puzzled" },
-//     {name: "Finish the Types", description: "Fill what is missing.", key:"finish" },
-//     { 
-//     name: "Identify from Image", 
-//     description: "Guess the correct answer based on the image shown", 
-//     key: "identify" 
-//     },
-//   ];
-
-//   const dispatch = useDispatch();
-//   const navigate = useNavigate();
-
-//   const handleCategoryClick = (category) => {
-//     dispatch(setCategory(category));
-//     navigate(`/quiz-type/${category}`);
-//   };
-
-//   return (
-//     <div className="p-6 md:p-12">
-//       <h2 className="text-2xl md:text-4xl font-bold mb-6">Choose Quiz Type</h2>
-//       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-//         {quizTypes.map((quiz) => (
-//           <Link
-//             key={quiz.name}
-//             // to={quiz.route}
-//             onClick={() => handleCategoryClick(quiz.key)}
-//             className="p-6 bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-200 flex flex-col justify-between"
-//           >
-//               <h3 className="text-xl font-semibold mb-2">{quiz.name}</h3>
-//               <p className="text-gray-600">{quiz.description}</p>
-          
-//           </Link>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default QuizTypes;
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setCategory } from "../store/finishQuizSlice";
@@ -62,33 +14,6 @@ import {
 
 const QuizTypes = () => {
   const quizTypes = [
-    // { 
-    //   name: "Multiple Choice", 
-    //   description: "Choose the correct answer from multiple options", 
-    //   key: "multiple-choice",
-    //   icon: FaListUl,
-    //   gradient: "from-blue-500 to-cyan-500",
-    //   bgGradient: "from-blue-50 to-cyan-50",
-    //   color: "blue"
-    // },
-    // { 
-    //   name: "True/False", 
-    //   description: "Quick quizzes with true or false answers", 
-    //   key: "true-false",
-    //   icon: FaCheckCircle,
-    //   gradient: "from-green-500 to-emerald-500",
-    //   bgGradient: "from-green-50 to-emerald-50",
-    //   color: "green"
-    // },
-    // { 
-    //   name: "Timed Quiz", 
-    //   description: "Answer questions before the timer runs out", 
-    //   key: "timed",
-    //   icon: FaClock,
-    //   gradient: "from-orange-500 to-red-500",
-    //   bgGradient: "from-orange-50 to-red-50",
-    //   color: "orange"
-    // },
     { 
       name: "Escape Rooms", 
       description: "Solve clues and complete tasks to 'escape' each themed room", 
@@ -115,16 +40,7 @@ const QuizTypes = () => {
       gradient: "from-amber-500 to-yellow-500",
       bgGradient: "from-amber-50 to-yellow-50",
       color: "amber"
-    },
-    { 
-      name: "Puzzle/Challenge", 
-      description: "Solve challenging and brain-teasing quizzes", 
-      key: "puzzled",
-      icon: FaPuzzlePiece,
-      gradient: "from-purple-500 to-pink-500",
-      bgGradient: "from-purple-50 to-pink-50",
-      color: "purple"
-    },
+    }
   ];
 
   const dispatch = useDispatch();
@@ -140,9 +56,9 @@ const QuizTypes = () => {
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-6xl font-bold text-white pb-6">
+          <h2 className="text-4xl md:text-4xl font-bold text-white pb-6">
             Choose Your Quiz Style
-          </h1>
+          </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
             Discover different ways to test your knowledge. Each quiz type offers a unique challenge 
             and learning experience.

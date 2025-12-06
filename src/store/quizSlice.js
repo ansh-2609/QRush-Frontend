@@ -11,17 +11,13 @@ const quizSlice = createSlice({
   },
   reducers: {
     setCategory: (state, action) => {
-      console.log("Setting category:", action.payload);
       state.category = action.payload;
-      // Reset quiz state when category changes
       state.questions = [];
       state.currentQuestionIndex = 0;
       state.score = 0;
       state.isFinished = false;
     },
     setQuestions: (state, action) => {
-      console.log("Setting questions:", action.payload);
-      console.log("Setting questions 0:", action.payload[0]);
       state.questions = action.payload;
     },
     nextQuestion: (state) => {

@@ -1,78 +1,5 @@
-// import { useDispatch, useSelector } from "react-redux";
-// import { useNavigate } from "react-router-dom";
-// import { fetchQuestionsByFinishCategory } from "../services/appServices";
-// import { setQuestions, setSubCategory } from "../store/finishQuizSlice";
 
-// const finishQuizzes = [
-//   {
-//     title: "Finish the Landmark",
-//     description: "Complete the name of the landmark. Example: 'Eiffel ____'",
-//     key: "landmark",
-//   },
-//   {
-//     title: "Finish the Brand Name",
-//     description: "Complete the name of the brand. Example: 'Cola- ____'",
-//     key: "brandname",
-//   },
-//   {
-//     title: "Finish the Capital",
-//     description: "Complete the capital of the country. Example: 'The capital of Japan is ____.'",
-
-//     key: "capitalcity",
-//   },
-//   {
-//     title: "Finish the Fact",
-//     description: "Complete the Fact. Example: 'The planet known for its rings is ____.'",
-
-//     key: "fact",
-//   },
-//   {
-//     title: "Finish the Inventor",
-//     description: "Identify the inventor from their invention. Example: 'The telephone was invented by ____.'",
-
-//     key: "inventor",
-//   },
-// ];
-
-// const FinishTheTypes = () => {
-//   const dispatch = useDispatch();
-//   const navigate = useNavigate();
-//   const category = useSelector((store) => store.finishQuiz.category);
-
-//   const handleCategoryClick = async (category, subcategory) => {
-//     dispatch(setSubCategory(subcategory));
-//     navigate(`/quiz-type/${category}/${subcategory}`);
-//     const data = await fetchQuestionsByFinishCategory(category, subcategory);
-//     console.log("data", data);
-//     dispatch(setQuestions(data));
-//   };
-
-//   return (
-//     <div className="p-6 md:p-12">
-//       <h2 className="text-3xl font-bold mb-8">Finish the … Quizzes</h2>
-//       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-//         {finishQuizzes.map((quiz) => (
-//           <span
-//             key={quiz.title}
-//             className="p-6 bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-200 flex flex-col justify-between"
-//           >
-//             <h3 className="text-xl font-semibold mb-2">{quiz.title}</h3>
-//             <p className="text-gray-600">{quiz.description}</p>
-//             <button
-//               className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors cursor-pointer"
-//               onClick={() => handleCategoryClick(category, quiz.key)}
-//             >
-//               Start Quiz
-//             </button>
-//           </span>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default FinishTheTypes;
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchQuestionsByFinishCategory } from "../../services/appServices";
 import { setQuestions, setSubCategory } from "../../store/finishQuizSlice";
@@ -129,13 +56,11 @@ const finishQuizzes = [
 const FinishTheTypes = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const category = useSelector((store) => store.finishQuiz.category);
 
-  const handleCategoryClick = async (category, subcategory) => {
+  const handleCategoryClick = async (subcategory) => {
     dispatch(setSubCategory(subcategory));
-    navigate(`/quiz-type/${category}/${subcategory}`);
-    const data = await fetchQuestionsByFinishCategory(category, subcategory);
-    console.log("data", data);
+    navigate(`/quiz-type/finish/${subcategory}`);
+    const data = await fetchQuestionsByFinishCategory(subcategory);
     dispatch(setQuestions(data));
   };
 
@@ -205,7 +130,7 @@ const FinishTheTypes = () => {
 
                   {/* Button */}
                   <button
-                    onClick={() => handleCategoryClick(category, quiz.key)}
+                    onClick={() => handleCategoryClick(quiz.key)}
                     className={`w-full py-4 px-6 bg-gradient-to-r ${quiz.gradient} 
                               text-white rounded-xl font-semibold text-lg
                               hover:shadow-lg transform hover:scale-105 

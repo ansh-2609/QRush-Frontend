@@ -11,7 +11,7 @@ const Badges = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [userStats, setUserStats] = useState({
     totalBadges: 0,
-    unlockedBadges: 0,
+    unlockedBadges: 0, 
     completionRate: 0
   });
 
@@ -19,20 +19,17 @@ const Badges = () => {
   useEffect(() => {
     const loadBadges = async () => {
       try {
-        console.log("userId from Redux:", userId);
         const badges = await fetchBadges();
-        console.log("All badges from API:", badges);
         setAllBadges(badges);
         if (userId) {
           try {
             const data = await fetchBadgesByUser(userId);
-            console.log("User badges from API:", data);
             setUserBadges(data);
           } catch (err) {
             console.error("Error in fetchBadgesByUser:", err);
           }
         } else {
-          console.log("No userId available!");
+          console.error("No userId available!");
         }
 
       } catch (error) {
@@ -44,111 +41,20 @@ const Badges = () => {
   }, [userId]);
 
 
-  // Mock data - replace with actual API calls
   const badgeCategories = [
     { id: "all", name: "All Badges" },
     { id: "quiz", name: "Quiz Master" },
-    { id: "streak", name: "Consistency" },
-    { id: "category", name: "Subject Expert" },
-    { id: "social", name: "Social Butterfly" }
+    { id: "category", name: "Category Quiz Master" },
+    { id: "escape", name: "Escape Master" },
+    { id: "image", name: "Image Quiz Master" },
+    { id: "finish", name: "Finish Quiz Master" },
   ];
 
-  // const allBadges = [
-  //   {
-  //     id: 1,
-  //     name: "First Steps",
-  //     description: "Complete your first quiz",
-  //     category: "quiz",
-  //     icon: "🚀",
-  //     rarity: "common",
-  //     unlocked: false,
-  //     progress: 0,
-  //     dateUnlocked: "2024-01-15"
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Quiz Novice",
-  //     description: "Complete 10 quizzes",
-  //     category: "quiz",
-  //     icon: "📚",
-  //     rarity: "common",
-  //     unlocked: false,
-  //     progress: 0,
-  //     dateUnlocked: "2024-01-20"
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Perfect Score",
-  //     description: "Get 100% on any quiz",
-  //     category: "quiz",
-  //     icon: "⭐",
-  //     rarity: "rare",
-  //     unlocked: false,
-  //     progress: 0,
-  //     requirement: "Score 100% on any quiz"
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "7-Day Streak",
-  //     description: "Maintain a 7-day login streak",
-  //     category: "streak",
-  //     icon: "🔥",
-  //     rarity: "uncommon",
-  //     unlocked: false,
-  //     progress: 0,
-  //     dateUnlocked: "2024-01-22"
-  //   },
-  //   {
-  //     id: 5,
-  //     name: "Math Whiz",
-  //     description: "Complete 20 math quizzes",
-  //     category: "category",
-  //     icon: "🧮",
-  //     rarity: "rare",
-  //     unlocked: false,
-  //     progress: 0,
-  //     requirement: "Complete 20 math quizzes"
-  //   },
-  //   {
-  //     id: 6,
-  //     name: "Socializer",
-  //     description: "Share 5 quiz results",
-  //     category: "social",
-  //     icon: "👥",
-  //     rarity: "common",
-  //     unlocked: false,
-  //     progress: 0,
-  //     requirement: "Share 5 quiz results"
-  //   },
-  //   {
-  //     id: 7,
-  //     name: "Speed Demon",
-  //     description: "Complete a quiz in under 2 minutes",
-  //     category: "quiz",
-  //     icon: "⚡",
-  //     rarity: "epic",
-  //     unlocked: false,
-  //     progress: 0,
-  //     requirement: "Finish any quiz in under 2 minutes"
-  //   },
-  //   {
-  //     id: 8,
-  //     name: "Category Master",
-  //     description: "Master 5 different categories",
-  //     category: "category",
-  //     icon: "🏆",
-  //     rarity: "legendary",
-  //     unlocked: false,
-  //     progress: 0,
-  //     requirement: "Master 5 different categories"
-  //   }
-  // ];
-
+ 
   useEffect(() => {
     // Merge all badges with user badge data
     const merged = allBadges.map(badge => {
       const userBadge = userBadges.find(ub => ub.badge_id === badge.id);
-      console.log(`Badge ${badge.id} (${badge.name}):`, { userBadge, unlocked: userBadge ? userBadge.unlocked : 0 });
 
       return {
           ...badge,
@@ -157,7 +63,6 @@ const Badges = () => {
           date_unlocked: userBadge ? userBadge.date_unlocked : null
         };
       });
-    console.log("Merged badges:", merged);
     setBadgesData(merged);
 
     // Filter badges based on selected category

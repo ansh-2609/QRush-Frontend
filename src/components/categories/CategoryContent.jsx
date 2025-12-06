@@ -29,8 +29,6 @@ const CategoryContent = () => {
                 dispatch(nextQuestion());
               }, 500); // delay so user sees click
             } else {
-              console.log("score", quizs.score);
-              console.log("Quiz finished!");
               dispatch(setFinished(true));
             }
           }}

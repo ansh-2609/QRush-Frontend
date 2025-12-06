@@ -1,54 +1,3 @@
-// import { createSlice } from "@reduxjs/toolkit";
-
-// const finishQuizSlice = createSlice({
-//   name: "finishQuiz",
-//   initialState: {
-//     questions: [],
-//     score:0,
-//     submitted: false,
-//     category: '',
-//     subcategory:'',
-//   },
-//   reducers: {
-//     setCategory: (state, action) => {
-//       state.category = action.payload;
-//       state.questions = [];
-//       state.score = 0;
-//       state.submitted = false;
-//     },
-//     setSubCategory: (state, action) => {
-//       state.subcategory = action.payload;
-//       state.questions = [];
-//       state.score = 0;
-//       state.submitted = false;
-//     },
-
-//     setQuestions: (state, action) => {
-//       state.questions = action.payload;
-//     },
-//     submitAnswer: (state, action) => {
-//       const useranswer = action.payload;
-//       console.log("useranswer",useranswer);
-
-//       state.score = 0;
-
-//       state.questions.forEach((element, index) => {
-//         const key = `answer${index}`;
-//         if(useranswer[key]?.toLowerCase().trim() === element.answer.toLowerCase().trim()){
-//           state.score += 1;
-//         }
-//       });
-
-//       state.submitted = true;
-//       console.log('Score', state.score);
-//     }
-//   },
-// });
-
-// export const { setQuestions, submitAnswer, setCategory, setSubCategory} = finishQuizSlice.actions;
-
-// export default finishQuizSlice;
-
 
 import { createSlice } from "@reduxjs/toolkit";
 
@@ -68,7 +17,6 @@ const finishQuizSlice = createSlice({
   reducers: {
     submitAnswer: (state, action) => {
       const useranswer = action.payload;
-      console.log("useranswer",useranswer);
 
       state.score = 0;
 
@@ -80,7 +28,6 @@ const finishQuizSlice = createSlice({
       });
 
       state.submitted = true;
-      console.log('Score', state.score);
     },
     setCategory: (state, action) => {
       state.category = action.payload;

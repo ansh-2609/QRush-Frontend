@@ -6,6 +6,7 @@ import fetchStatusSlice from "./fetchStatusSlice";
 import finishQuizSlice from "./finishQuizSlice";
 import imageQuizSlice from "./imageQuizSlice";
 import authSlice from "./authSlice";
+import escapeRoomSlice from "./escapeRoomSlice";
 
 const persistConfig = {
   key: "root",
@@ -15,6 +16,7 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, quizReducer);
 const persistedImageQuizReducer = persistReducer(persistConfig, imageQuizSlice.reducer);
 const persistedAuthReducer = persistReducer(persistConfig, authSlice.reducer);
+const persistedEscapeRoomReducer = persistReducer(persistConfig, escapeRoomSlice.reducer);
 
 export const store = configureStore({
   reducer: {
@@ -23,6 +25,7 @@ export const store = configureStore({
     finishQuiz : finishQuizSlice.reducer,
     imageQuiz: persistedImageQuizReducer,
     auth: persistedAuthReducer,
+    escapeRoom: persistedEscapeRoomReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

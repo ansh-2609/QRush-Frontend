@@ -57,12 +57,12 @@ const Header = () => {
           <Link to="/badges" className="px-2 lg:px-3 py-2 hover:bg-white text-white hover:text-black rounded-lg transition-colors duration-200">
             Badges
           </Link>
-          <Link to="#" className="px-2 lg:px-3 py-2 hover:bg-white text-white hover:text-black rounded-lg transition-colors duration-200">
+          {/* <Link to="#" className="px-2 lg:px-3 py-2 hover:bg-white text-white hover:text-black rounded-lg transition-colors duration-200">
             Create Quiz
           </Link>
           <Link to="#" className="px-2 lg:px-3 py-2 hover:bg-white text-white hover:text-black rounded-lg transition-colors duration-200">
             Study
-          </Link>
+          </Link> */}
         </nav>
         )}
 

@@ -1,101 +1,3 @@
-// import { useDispatch } from "react-redux";
-// import { useNavigate } from "react-router-dom";
-// import { setCategory, setQuestions } from "../store/quizSlice";
-// import { fetchPlayCount, fetchQuestionsByCategory, setPlayCount } from "../services/appServices";
-// import { CiPlay1 } from "react-icons/ci";
-// import { useEffect, useState } from "react";
-
-// const categories = [
-//   { name: "Plants", key: "plants" },
-//   { name: "Animals", key: "animals" },
-//   { name: "Planets", key: "planets" },
-//   { name: "Technology", key: "technology" },
-//   { name: "Science", key: "science" },
-//   { name: "Geography", key: "geography" },
-//   { name: "General Knowledge", key: "generalknowledge" },
-// ]; 
-
-// const Categories = () => {
-//   const dispatch = useDispatch();
-//   const navigate = useNavigate();
-//   const [playCounts, setPlayCounts] = useState({});
-
-//   useEffect(() => {
-//     const loadPlayCounts = async () => {
-//       const counts = {};
-//       for (const cat of categories) {
-//         try {
-//           const data = await fetchPlayCount(cat.key);
-//           // assuming backend returns: [{ category: "plants", playcounts: 3 }]
-//           counts[cat.key] = data[0]?.playcounts || 0;
-//         } catch (error) {
-//           counts[cat.key] = 0;
-//         }
-//       }
-//       setPlayCounts(counts);
-//     };
-//     loadPlayCounts();
-//   }, []);
-
-//   const handleCategoryClick = async (category) => {
-//     dispatch(setCategory(category));
-
-//     try {
-//       await setPlayCount(category);
-//     } catch (err) {
-//       console.error("Failed to update play count", err);
-//     }
-
-//     navigate(`/categories/${category}`);
-//     const data = await fetchQuestionsByCategory(category);
-//     dispatch(setQuestions(data));
-
-//   };
-
-//   return (
-//     <main className="py-10 px-6 text-center min-h-[calc(100vh-132px)] bg-gradient-to-b from-blue-50 to-white">
-//       <h2 className="text-4xl font-extrabold text-blue-800 mb-4">
-//         Quiz Categories
-//       </h2>
-//       <h3 className="text-2xl font-semibold text-blue-600 mb-6">
-//         Explore Various Quiz Topics!
-//       </h3>
-//       <p className="text-lg text-gray-700 max-w-xl mx-auto mb-10">
-//         Pick a category below and challenge yourself with fun quizzes.
-//       </p>
-
-//       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
-//         {categories.map((cat) => (
-//           <button
-//             key={cat.key}
-//             onClick={() => handleCategoryClick(cat.key)}
-//             className="bg-white shadow-md hover:shadow-lg border border-blue-200 
-//                        rounded-2xl py-6 px-4 transition-all duration-300 
-//                        hover:-translate-y-1 hover:bg-blue-600 hover:text-white 
-//                        text-blue-700 font-semibold text-lg cursor-pointer"
-//           >
-//             <div>
-//               <span className="block text-xl font-bold">{cat.name}</span>
-//             </div>
-//             <div className="flex items-center justify-center gap-2 mt-3">
-//               <CiPlay1 className="text-2xl" />
-//               <span>
-    
-//                 {playCounts[cat.key] !== undefined
-//                   ? `${playCounts[cat.key]} played`
-//                   : "Loading..."}
-     
-//               </span>
-//             </div>
-//           </button>
-//         ))}
-//       </div>
-//     </main>
-//   );
-// };
-
-// export default Categories;
-
 
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -111,8 +13,10 @@ const categories = [
   { name: "Technology", key: "technology", icon: "💻" },
   { name: "Science", key: "science", icon: "🔬" },
   { name: "Geography", key: "geography", icon: "🌎" },
-  // { name: "General Knowledge", key: "generalknowledge", icon: "🧠" },
+  { name: "General Knowledge", key: "generalknowledge", icon: "🧠" },
   { name: "Travel", key: "travel", icon: "✈️" },
+  { name: "Environment", key: "environment", icon: "🌳" },
+  { name: "Space", key: "space", icon: "✨" },
 ]; 
 
 const Categories = () => {
@@ -143,7 +47,7 @@ const Categories = () => {
     dispatch(setCategory(category));
  
     try {
-      await setPlayCount(category);
+      await setPlayCount(category); 
     } catch (err) {
       console.error("Failed to update play count", err);
     }

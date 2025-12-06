@@ -1,28 +1,3 @@
-// import WordOfTheDay from "../components/WordOfTheDay";
-
-// const Home = () => {
-//   return (
-//     <>
-//       <main className="py-15 text-center">
-//         <h2 className="text-4xl font-bold text-blue-800 mb-4">
-//           Welcome to QRush - Your Ultimate Quiz Platform!
-//         </h2>
-//         <h3 className="text-2xl font-semibold text-blue-600 mb-6">
-//           Play Fun Quizzes Anytime!
-//         </h3>
-//         <p className="text-lg text-gray-700">
-//           Challenge your brain, compete with friends, and test your knowledge
-//         </p>
-//         <div className="mt-6">
-//           <WordOfTheDay />
-//         </div> 
-//       </main>
-//     </>
-//   );
-// };
-
-// export default Home;
-
 
 import WordOfTheDay from "../components/WordOfTheDay";
 

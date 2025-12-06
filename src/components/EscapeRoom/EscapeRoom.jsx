@@ -1,39 +1,51 @@
 import { FaDoorOpen, FaLock, FaMapMarkedAlt } from "react-icons/fa";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { setQuestions, setSubCategory } from "../../store/escapeRoomSlice";
+import { fetchQuestionsByEscapeRoom } from "../../services/appServices";
 
 const EscapeRoom = () => {
-  const navigate = useNavigate();
 
   const escapeRooms = [
     {
       name: "Escape Room 1: The Ancient Temple",
       description:
         "Solve cryptic puzzles to uncover the secrets of a lost civilization before the doors close forever.",
-      key: "escape-room-1",
+      key: "temple",
       icon: FaDoorOpen,
       gradient: "from-amber-500 to-orange-500",
     },
     {
-      name: "Escape Room 2: The Locked Laboratory",
-      description:
-        "Crack the scientist’s code, deactivate traps, and escape the lab before it self-destructs.",
-      key: "escape-room-2",
-      icon: FaLock,
-      gradient: "from-indigo-500 to-blue-500",
-    },
-    {
-      name: "Escape Room 3: The Island Mystery",
+      name: "Escape Room 2: The Island Mystery",
       description:
         "Navigate clues hidden across a tropical island and find the escape route before the storm hits.",
-      key: "escape-room-3",
+      key: "island",
       icon: FaMapMarkedAlt,
       gradient: "from-green-500 to-emerald-500",
     },
+    {
+      name: "Escape Room 3: The Locked Laboratory",
+      description:
+        "Crack the scientist’s code, deactivate traps, and escape the lab before it self-destructs.",
+      key: "lab",
+      icon: FaLock,
+      gradient: "from-indigo-500 to-blue-500",
+    },
+    
   ];
 
-  const handleRoomClick = (roomKey) => {
-    // You can navigate to a detailed room or quiz page
+  
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleRoomClick = async(roomKey) => {
+    dispatch(setSubCategory(roomKey));
+
+    const data = await fetchQuestionsByEscapeRoom(roomKey);
+    dispatch(setQuestions(data));
+    
     navigate(`/quiz-type/escape-rooms/${roomKey}`);
+    
   };
 
   return (

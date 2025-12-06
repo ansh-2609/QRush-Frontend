@@ -1,5 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { setQuestions } from "../../store/finishQuizSlice";
+import { fetchFinishQuizPlayed, fetchFinishQuizStatus, fetchQuizPlayed, setFinishQuizPlayed, setFinishQuizStatus, setFirstQuizBadge, setQuizLordBadge, setQuizPlayed, setSecondCategoryQuizBadge, updateQuizLordBadge, updateSecondFinishQuizBadge } from "../../services/appServices";
+import { useEffect, useRef } from "react";
 
 const Finished = ({ onHome }) => {
   const dispatch = useDispatch();
@@ -9,10 +11,101 @@ const Finished = ({ onHome }) => {
   const totalQuestions = questions.length;
   const percentage = Math.round((score / totalQuestions) * 100);
 
+
+  const category = useSelector((state) => state.finishQuiz.subcategory);
+  const userId = useSelector((state) => state.auth.userId);
+
+  const hasRun = useRef(false);
+
+
+  useEffect(()  => {
+
+    const getCompleteStatus = async () => {
+      if (hasRun.current) return;
+      hasRun.current = true;
+      try {
+
+        const response = await fetchFinishQuizStatus(category, userId);
+
+        const finishQuizPlayed = await fetchFinishQuizPlayed(userId);
+        if (Array.isArray(finishQuizPlayed) && finishQuizPlayed.length > 0 && finishQuizPlayed[0]) {
+          const key = Object.keys(finishQuizPlayed[0])[0];
+          const value = finishQuizPlayed[0][key];
+
+          if(value < 5 && !response[0][category]) {
+              await updateSecondFinishQuizBadge(userId);
+          }
+        }else {
+          console.warn("fetchFinishQuizPlayed returned invalid data:", finishQuizPlayed);
+        }
+
+        const response2 = await fetchFinishQuizStatus(category, userId);
+        if (Array.isArray(response2) && response2.length > 0 && response2[0]) {
+          const dynamicCategory = Object.keys(response2[0])[0];
+          if (!response2[0][dynamicCategory]) {
+            await setFinishQuizPlayed(userId);
+            await setQuizPlayed(userId);
+            await setFinishQuizStatus(category, userId);
+          }
+        } else {
+          console.warn("fetchFinishQuizStatus returned invalid data:", response2);
+        }
+
+        const quizPlayed = await fetchQuizPlayed(userId);
+
+        if (Array.isArray(quizPlayed) && quizPlayed.length > 0 && quizPlayed[0]) {
+          const key = Object.keys(quizPlayed[0])[0];
+          const value = quizPlayed[0][key];
+
+          if (value < 25) {
+            await updateQuizLordBadge(userId, value);
+          }
+        }else {
+          console.warn("fetchQuizPlayed returned invalid data:", quizPlayed);
+        }
+
+        const quizPlayed2 = await fetchQuizPlayed(userId);
+
+        if (Array.isArray(quizPlayed2) && quizPlayed2.length > 0 && quizPlayed2[0]) {
+          const key = Object.keys(quizPlayed2[0])[0];
+          const value = quizPlayed2[0][key];
+
+          if (value === 1 || value === "1") {
+            await setFirstQuizBadge(userId);
+          }
+
+          if(value ===  25) {
+            await setQuizLordBadge(userId);
+          }
+        }else {
+          console.warn("fetchQuizPlayed returned invalid data:", quizPlayed2);
+        }
+
+        const finishQuizPlayed2 = await fetchFinishQuizPlayed(userId);
+        if (Array.isArray(finishQuizPlayed2) && finishQuizPlayed2.length > 0 && finishQuizPlayed2[0]) {
+          const key = Object.keys(finishQuizPlayed2[0])[0];
+          const value = finishQuizPlayed2[0][key];
+
+          if (value ===  5) {
+            await setSecondCategoryQuizBadge(userId);
+          }
+          
+        } else {
+          console.warn("fetchFinishQuizPlayed returned invalid data:", finishQuizPlayed2);
+        }
+
+
+      }catch (error) {
+        console.error("Error updating quiz status:", error);
+      }
+    };
+    getCompleteStatus();
+  }, [category, userId]);
+
   const getPerformanceMessage = () => {
     if (percentage >= 80) return "Excellent work!";
     if (percentage >= 60) return "Good job!";
-    if (percentage >= 40) return "Nice try!";
+    if (percentage >= 40) return "Nice try!"; 
     return "Keep practicing!";
   };
 
@@ -24,7 +117,7 @@ const Finished = ({ onHome }) => {
   };
 
   const handleRestart = () => {
-    // reset quiz (clear previous answers/score but keep questions)
+    // reset quiz
     dispatch(setQuestions([...questions]));
   };
 

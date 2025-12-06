@@ -42,15 +42,6 @@ const imageQuizzes = [
     examples: ["Hyacinth", "Oak Tree", "Iris"]
   },
   {
-    title: "Identify the Artwork",
-    description: "Recognize famous paintings and artworks",
-    key: "art",
-    icon: FaPaintBrush,
-    gradient: "from-purple-500 to-pink-500",
-    bgGradient: "from-purple-50 to-pink-50",
-    examples: ["Mona Lisa", "Starry Night", "The Scream"]
-  },
-  {
     title: "Identify the Car Brand",
     description: "Name car manufacturers from their logos and models",
     key: "cars",
@@ -82,17 +73,15 @@ const imageQuizzes = [
 const IdentifyFromImage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const category = useSelector((store) => store.imageQuiz.category);
 
-  const handleCategoryClick = async (category, subcategory) => {
+  const handleCategoryClick = async (subcategory) => {
     dispatch(setSubCategory(subcategory));
     
-    const data = await fetchQuestionsByIdentifyCategory(category, subcategory);
-    console.log("image quiz data", data);
+    const data = await fetchQuestionsByIdentifyCategory(subcategory);
     dispatch(setQuestions(data));
-
+ 
     
-    navigate(`/quiz-type/${category}/${subcategory}`);
+    navigate(`/quiz-type/identify/${subcategory}`);
   };
 
   return (
@@ -162,7 +151,7 @@ const IdentifyFromImage = () => {
 
                   {/* Button */}
                   <button
-                    onClick={() => handleCategoryClick(category, quiz.key)}
+                    onClick={() => handleCategoryClick(quiz.key)}
                     className={`w-full py-3 px-4 bg-gradient-to-r ${quiz.gradient} 
                               text-white rounded-lg font-semibold text-base
                               hover:shadow-lg transform hover:scale-105 

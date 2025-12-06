@@ -1,8 +1,23 @@
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
 
+
+export const fetchTodayWord = async (id) => {
+  try {
+    const response = await fetch(`${API_URL}/todaysword/${id}`);
+
+    if (!response.ok) {
+      throw new Error(`Network response was not ok`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(`Error fetching today's word:`, error);
+    throw error;
+  }
+};
+
 export const fetchQuestionsByCategory = async (category) => {
   try {
-    console.log(`Fetching questions for category: ${category}`);
     const response = await fetch(`${API_URL}/categories/${category}`);
 
     if (!response.ok) {
@@ -16,11 +31,9 @@ export const fetchQuestionsByCategory = async (category) => {
   }
 };
 
-export const fetchQuestionsByFinishCategory = async (category, subcategory) => {
+export const fetchQuestionsByFinishCategory = async (subcategory) => {
   try {
-    // console.log(`Fetching questions for category: ${category}`);
-    const response = await fetch(`${API_URL}/quiz-type/${category}/${subcategory}`);
-    console.log("response",response);
+    const response = await fetch(`${API_URL}/quiz-type/finish/${subcategory}`);
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
     }
@@ -32,11 +45,9 @@ export const fetchQuestionsByFinishCategory = async (category, subcategory) => {
   }
 };
 
-export const fetchQuestionsByIdentifyCategory = async (category, subcategory) => {
+export const fetchQuestionsByIdentifyCategory = async (subcategory) => {
   try {
-    // console.log(`Fetching questions for category: ${category}`);
-    const response = await fetch(`${API_URL}/quiz-type/${category}/${subcategory}`);
-    console.log("response",response);
+    const response = await fetch(`${API_URL}/quiz-type/identify/${subcategory}`);
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
     }
@@ -47,6 +58,21 @@ export const fetchQuestionsByIdentifyCategory = async (category, subcategory) =>
     throw error;
   }
 };
+
+export const fetchQuestionsByEscapeRoom = async (subcategory) => {
+  try {
+    const response = await fetch(`${API_URL}/quiz-type/escape-rooms/${subcategory}`);
+    if (!response.ok) {
+      throw new Error(`Network response was not ok`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(`Error fetching questions:`, error);
+    throw error;
+  }
+};
+
 
 export const fetchBadges = async () => {
   try {
@@ -56,7 +82,6 @@ export const fetchBadges = async () => {
       throw new Error(`Network response was not ok`);
     }
     const data = await response.json();
-    console.log("Badges data:", data);
     return data;
   } catch (error) {
     console.error(`Error fetching questions:`, error);
@@ -80,7 +105,7 @@ export const setSignupInfo = async (signupData) => {
     if (!response.ok) {
       // Log the detailed error messages from backend
       console.error(`Signup failed:`, data.errorMessages);
-      return data; // Return error data so frontend can display it
+      return data;
     }
 
     return data;
@@ -105,7 +130,6 @@ export const setLoginInfo = async (loginData) => {
       throw new Error(`Login failed`);
     }
     const data = await response.json();
-    console.log("Login response data:", data);
     return data;
   } catch (error) {
     console.error(`Error setting login info:`, error);
@@ -205,6 +229,88 @@ export const setCStatus = async (category, userId) => {
   }
 }
 
+export const fetchImageQuizStatus = async(category,userId) => {
+  try {
+    const response = await fetch(`${API_URL}/api/imagequizstatus/${category}/${userId}`, {method : "GET"});
+    if (!response.ok) {
+      throw new Error(`Network response was not ok`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(`Error fetching image quiz status:`, error);
+    throw error;
+  }
+};
+
+export const setImageQuizStatus = async (category, userId) => {
+  try {
+    const response = await fetch(`${API_URL}/api/imagequizstatus/${category}/${userId}`, { method: "PUT" });
+    if (!response.ok) {
+      throw new Error(`Network response was not ok`);
+    }
+    return; 
+  } catch (error) { 
+    console.error(`Error updating image quiz status:`, error);
+    throw error;
+  }
+};
+
+export const fetchFinishQuizStatus = async(category,userId) => {
+  try {
+    const response = await fetch(`${API_URL}/api/finishquizstatus/${category}/${userId}`, {method : "GET"});
+    if (!response.ok) {
+      throw new Error(`Network response was not ok`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(`Error fetching image quiz status:`, error);
+    throw error;
+  }
+};
+
+export const setFinishQuizStatus = async (category, userId) => {
+  try {
+    const response = await fetch(`${API_URL}/api/finishquizstatus/${category}/${userId}`, { method: "PUT" });
+    if (!response.ok) {
+      throw new Error(`Network response was not ok`);
+    }
+    return; 
+  } catch (error) { 
+    console.error(`Error updating image quiz status:`, error);
+    throw error;
+  }
+};
+
+export const fetchEscapeQuizStatus = async(category,userId) => {
+  try {
+    const response = await fetch(`${API_URL}/api/escapequizstatus/${category}/${userId}`, {method : "GET"});
+    if (!response.ok) {
+      throw new Error(`Network response was not ok`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(`Error fetching image quiz status:`, error);
+    throw error;
+  }
+};
+
+export const setEscapeQuizStatus = async (category, userId) => {
+  try {
+    const response = await fetch(`${API_URL}/api/escapequizstatus/${category}/${userId}`, { method: "PUT" });
+    if (!response.ok) {
+      throw new Error(`Network response was not ok`);
+    }
+    return; 
+  } catch (error) { 
+    console.error(`Error updating image quiz status:`, error);
+    throw error;
+  }
+};
+
+
 export const fetchQuizPlayed = async(id) => {
   try {
     const response = await fetch(`${API_URL}/api/quizplayed/${id}`, {method : "GET"});
@@ -286,6 +392,202 @@ export const updateSecondCategoryQuizBadge = async (userId) => {
   }
 }
 
+export const setThirdCategoryQuizBadge = async (userId) => {
+  try {
+    const response = await fetch(`${API_URL}/api/badges/${userId}/thirdcategoryquiz`, { method: "PUT", credentials: `include` });
+    if (!response.ok) {
+      throw new Error(`Network response was not ok`);
+    }
+    return; 
+  } catch (error) { 
+    console.error(`Error setting third category quiz badge:`, error);
+    throw error;
+  }
+}
+
+export const updateThirdCategoryQuizBadge = async (userId) => {
+  try {
+    const response = await fetch(`${API_URL}/api/badges/${userId}/thirdcategoryquizprogress`, { method: "PUT", credentials: `include` });
+    if (!response.ok) {
+      throw new Error(`Network response was not ok`);
+    }
+    return; 
+  } catch (error) { 
+    console.error(`Error updating third category quiz played status:`, error);
+    throw error;
+  }
+}
+
+export const setSecondImageQuizBadge = async (userId) => {
+  try {
+    const response = await fetch(`${API_URL}/api/badges/${userId}/secondimagequiz`, { method: "PUT", credentials: `include` });
+    if (!response.ok) {
+      throw new Error(`Network response was not ok`);
+    }
+    return; 
+  } catch (error) { 
+    console.error(`Error setting second image quiz badge:`, error);
+    throw error;
+  }
+}
+
+export const updateSecondImageQuizBadge = async(userId) => {
+  try {
+    const response = await fetch(`${API_URL}/api/badges/${userId}/secondimagequizprogress`, { method: "PUT", credentials: `include` });
+    if (!response.ok) {
+      throw new Error(`Network response was not ok`);
+    }
+    return; 
+  } catch (error) { 
+    console.error(`Error updating second image quiz played status:`, error);
+    throw error;
+  }
+}
+
+export const setThirdImageQuizBadge = async (userId) => {
+  try {
+    const response = await fetch(`${API_URL}/api/badges/${userId}/thirdimagequiz`, { method: "PUT", credentials: `include` });
+    if (!response.ok) {
+      throw new Error(`Network response was not ok`);
+    }
+    return; 
+  } catch (error) { 
+    console.error(`Error setting third image quiz badge:`, error);
+    throw error;
+  }
+}
+
+export const updateThirdImageQuizBadge = async(userId) => {
+  try {
+    const response = await fetch(`${API_URL}/api/badges/${userId}/thirdimagequizprogress`, { method: "PUT", credentials: `include` });
+    if (!response.ok) {
+      throw new Error(`Network response was not ok`);
+    }
+    return; 
+  } catch (error) { 
+    console.error(`Error updating third image quiz played status:`, error);
+    throw error;
+  }
+}
+
+export const setSecondFinishQuizBadge = async (userId) => {
+  try {
+    const response = await fetch(`${API_URL}/api/badges/${userId}/secondfinishquiz`, { method: "PUT", credentials: `include` });
+    if (!response.ok) {
+      throw new Error(`Network response was not ok`);
+    }
+    return; 
+  } catch (error) { 
+    console.error(`Error setting third image quiz badge:`, error);
+    throw error;
+  }
+}
+
+export const updateSecondFinishQuizBadge = async(userId) => {
+  try {
+    const response = await fetch(`${API_URL}/api/badges/${userId}/secondfinishquizprogress`, { method: "PUT", credentials: `include` });
+    if (!response.ok) {
+      throw new Error(`Network response was not ok`);
+    }
+    return; 
+  } catch (error) { 
+    console.error(`Error updating third image quiz played status:`, error);
+    throw error;
+  }
+}
+
+export const setFirstEscapeQuizBadge = async (userId) => {
+  try {
+    const response = await fetch(`${API_URL}/api/badges/${userId}/firstescapequiz`, { method: "PUT", credentials: `include` });
+    if (!response.ok) {
+      throw new Error(`Network response was not ok`);
+    }
+    return; 
+  } catch (error) { 
+    console.error(`Error setting third image quiz badge:`, error);
+    throw error;
+  }
+}
+
+export const setSecondEscapeQuizBadge = async (userId) => {
+  try {
+    const response = await fetch(`${API_URL}/api/badges/${userId}/secondescapequiz`, { method: "PUT", credentials: `include` });
+    if (!response.ok) {
+      throw new Error(`Network response was not ok`);
+    }
+    return; 
+  } catch (error) { 
+    console.error(`Error setting third image quiz badge:`, error);
+    throw error;
+  }
+}
+
+export const setThirdEscapeQuizBadge = async (userId) => {
+  try {
+    const response = await fetch(`${API_URL}/api/badges/${userId}/thirdescapequiz`, { method: "PUT", credentials: `include` });
+    if (!response.ok) {
+      throw new Error(`Network response was not ok`);
+    }
+    return; 
+  } catch (error) { 
+    console.error(`Error setting third image quiz badge:`, error);
+    throw error;
+  }
+}
+
+
+export const setFourthEscapeQuizBadge = async (userId) => {
+  try {
+    const response = await fetch(`${API_URL}/api/badges/${userId}/fourthescapequiz`, { method: "PUT", credentials: `include` });
+    if (!response.ok) {
+      throw new Error(`Network response was not ok`);
+    }
+    return; 
+  } catch (error) { 
+    console.error(`Error setting third image quiz badge:`, error);
+    throw error;
+  }
+}
+
+export const updateFourthEscapeQuizBadge = async(userId) => {
+  try {
+    const response = await fetch(`${API_URL}/api/badges/${userId}/fourthescapequizprogress`, { method: "PUT", credentials: `include` });
+    if (!response.ok) {
+      throw new Error(`Network response was not ok`);
+    }
+    return; 
+  } catch (error) { 
+    console.error(`Error updating third image quiz played status:`, error);
+    throw error;
+  }
+}
+
+export const updateQuizLordBadge = async(userId, value) => {
+  try {
+    const response = await fetch(`${API_URL}/api/badges/${userId}/${value}/quizlordprogress`, { method: "PUT", credentials: `include` });
+    if (!response.ok) {
+      throw new Error(`Network response was not ok`);
+    }
+    return; 
+  } catch (error) { 
+    console.error(`Error updating third image quiz played status:`, error);
+    throw error;
+  }
+}
+
+export const setQuizLordBadge = async (userId) => {
+  try {
+    const response = await fetch(`${API_URL}/api/badges/${userId}/quizlord`, { method: "PUT", credentials: `include` });
+    if (!response.ok) {
+      throw new Error(`Network response was not ok`);
+    }
+    return; 
+  } catch (error) { 
+    console.error(`Error updating third image quiz played status:`, error);
+    throw error;
+  }
+}
+
 export const fetchCategoryQuizPlayed = async(userId) => {
   try {
     const response = await fetch(`${API_URL}/api/categoryquizplayed/${userId}`, {method : "GET"}); 
@@ -313,3 +615,85 @@ export const setCategoryQuizPlayed = async (userId) => {
   }
 }
 
+export const fetchImageQuizPlayed = async(userId) => {
+  try {
+    const response = await fetch(`${API_URL}/api/imagequizplayed/${userId}`, {method : "GET"});
+    if (!response.ok) {
+      throw new Error(`Network response was not ok`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(`Error fetching complete status:`, error);
+    throw error;
+  }
+}
+
+export const setImageQuizPlayed = async (userId) => {
+  try {
+    const response = await fetch(`${API_URL}/api/imagequizplayed/${userId}`, { method: "PUT" });
+    if (!response.ok) {
+      throw new Error(`Network response was not ok`);
+    }
+    return; 
+  } catch (error) { 
+    console.error(`Error updating complete status:`, error);
+    throw error;
+  }
+}
+
+
+export const fetchFinishQuizPlayed = async(userId) => {
+  try {
+    const response = await fetch(`${API_URL}/api/finishquizplayed/${userId}`, {method : "GET"});
+    if (!response.ok) {
+      throw new Error(`Network response was not ok`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(`Error fetching complete status:`, error);
+    throw error;
+  }
+}
+
+export const setFinishQuizPlayed = async (userId) => {
+  try {
+    const response = await fetch(`${API_URL}/api/finishquizplayed/${userId}`, { method: "PUT" });
+    if (!response.ok) {
+      throw new Error(`Network response was not ok`);
+    }
+    return; 
+  } catch (error) { 
+    console.error(`Error updating complete status:`, error);
+    throw error;
+  }
+}
+
+
+export const fetchEscapeQuizPlayed = async(userId) => {
+  try {
+    const response = await fetch(`${API_URL}/api/escapequizplayed/${userId}`, {method : "GET"});
+    if (!response.ok) {
+      throw new Error(`Network response was not ok`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(`Error fetching complete status:`, error);
+    throw error;
+  }
+}
+
+export const setEscapeQuizPlayed = async (userId) => {
+  try {
+    const response = await fetch(`${API_URL}/api/escapequizplayed/${userId}`, { method: "PUT" });
+    if (!response.ok) {
+      throw new Error(`Network response was not ok`);
+    }
+    return; 
+  } catch (error) { 
+    console.error(`Error updating complete status:`, error);
+    throw error;
+  }
+}

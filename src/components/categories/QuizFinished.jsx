@@ -1,6 +1,6 @@
 
 import {useEffect, useRef } from "react";
-import { fetchCategoryQuizPlayed, fetchCStatus, fetchQuizPlayed, setCategoryQuizPlayed, setCStatus, setFirstQuizBadge, setQuizPlayed, setSecondCategoryQuizBadge, updateSecondCategoryQuizBadge } from "../../services/appServices";
+import { fetchCategoryQuizPlayed, fetchCStatus, fetchQuizPlayed, setCategoryQuizPlayed, setCStatus, setFirstQuizBadge, setQuizPlayed, setSecondCategoryQuizBadge, setThirdCategoryQuizBadge, updateQuizLordBadge, updateSecondCategoryQuizBadge, updateThirdCategoryQuizBadge } from "../../services/appServices";
 import { useSelector } from "react-redux";
 
 const QuizFinished = ({ score, totalQuestions, onRestart, onHome }) => {
@@ -11,10 +11,10 @@ const QuizFinished = ({ score, totalQuestions, onRestart, onHome }) => {
   const category = useSelector((state) => state.quiz.category);
 
   const userId = useSelector((state) => state.auth.userId);
+  
 
-  console.log("User ID in QuizFinished:", userId);
   const hasRun = useRef(false);
-
+ 
 
   useEffect(() => {
     
@@ -22,15 +22,38 @@ const QuizFinished = ({ score, totalQuestions, onRestart, onHome }) => {
       if (hasRun.current) return;
       hasRun.current = true;
       try {
-        const response2 = await fetchCStatus(category, userId);
+ 
+        const response = await fetchCStatus(category, userId);
 
+        const categoryQuizPlayed = await fetchCategoryQuizPlayed(userId);
+        if (Array.isArray(categoryQuizPlayed) && categoryQuizPlayed.length > 0 && categoryQuizPlayed[0]) {
+          const key = Object.keys(categoryQuizPlayed[0])[0];
+          const value = categoryQuizPlayed[0][key];
+
+
+          if(value < 5 && !response[0][category]) {
+
+            await updateSecondCategoryQuizBadge(userId);
+            
+          }
+
+          if(value < 10 && !response[0][category]) {
+
+            await updateThirdCategoryQuizBadge(userId); 
+        }
+        } else {
+          console.warn("fetchCategoryQuizPlayed returned invalid data:", categoryQuizPlayed);
+        }
+
+        
+
+        
+        const response2 = await fetchCStatus(category, userId);
         if (Array.isArray(response2) && response2.length > 0 && response2[0]) {
           const dynamicCategory = Object.keys(response2[0])[0];
-          console.log("Dynamic Category:", dynamicCategory);
-          console.log("CStatus data:", response2[0][dynamicCategory]);
 
           if (!response2[0][dynamicCategory]) {
-            await setCategoryQuizPlayed(userId);
+            await setCategoryQuizPlayed(userId); 
             await setQuizPlayed(userId);
             await setCStatus(category, userId);
           }
@@ -39,38 +62,51 @@ const QuizFinished = ({ score, totalQuestions, onRestart, onHome }) => {
         }
 
         const quizPlayed = await fetchQuizPlayed(userId);
-        console.log("Updated Quiz Played data:", quizPlayed);
 
         if (Array.isArray(quizPlayed) && quizPlayed.length > 0 && quizPlayed[0]) {
           const key = Object.keys(quizPlayed[0])[0];
           const value = quizPlayed[0][key];
 
-          if (value === 1 || value === "1") {
-            console.log("🎖️ User has played their first quiz. Awarding first badge...");
-            await setFirstQuizBadge(userId);
+          if (value < 25) {
+            await updateQuizLordBadge(userId, value);
           }
         }else {
           console.warn("fetchQuizPlayed returned invalid data:", quizPlayed);
         }
 
-        const categoryQuizPlayed = await fetchCategoryQuizPlayed(userId);
-        if (Array.isArray(categoryQuizPlayed) && categoryQuizPlayed.length > 0 && categoryQuizPlayed[0]) {
-          const key = Object.keys(categoryQuizPlayed[0])[0];
-          const value = categoryQuizPlayed[0][key];
+        const quizPlayed2 = await fetchQuizPlayed(userId);
 
-          if (value === 5) {
-            console.log("🎖️ User has played their five category quiz. Awarding five category badge...");
-            
+        if (Array.isArray(quizPlayed2) && quizPlayed2.length > 0 && quizPlayed2[0]) {
+          const key = Object.keys(quizPlayed2[0])[0];
+          const value = quizPlayed2[0][key];
+
+          if (value === 1 || value === "1") {
+            await setFirstQuizBadge(userId);
+          }
+
+          if(value ===  25) {
+            await setQuizLordBadge(userId);
+          }
+        }else {
+          console.warn("fetchQuizPlayed returned invalid data:", quizPlayed2);
+        }
+
+        const categoryQuizPlayed2 = await fetchCategoryQuizPlayed(userId);
+        if (Array.isArray(categoryQuizPlayed2) && categoryQuizPlayed2.length > 0 && categoryQuizPlayed2[0]) {
+          const key = Object.keys(categoryQuizPlayed2[0])[0];
+          const value = categoryQuizPlayed2[0][key];
+
+          if (value ===  5) {
             await setSecondCategoryQuizBadge(userId);
           }
-          else if(value > 0 && value < 5){
-            await updateSecondCategoryQuizBadge(userId);
-          }
+
+          if(value === 10) {
+            await setThirdCategoryQuizBadge(userId); 
+        }
+          
         } else {
           console.warn("fetchCategoryQuizPlayed returned invalid data:", categoryQuizPlayed);
         }
-
-        
 
       } catch (error) {
         console.error("Error fetching complete status:", error);
@@ -81,48 +117,6 @@ const QuizFinished = ({ score, totalQuestions, onRestart, onHome }) => {
     getCompleteStatus();
   }, [category, userId]);
 
-
-  // useEffect(() => {
-  //   const firstBadge = async () => {
-      
-
-  //     try {
-  //       const quizPlayed = await fetchQuizPlayed(userId);
-
-  //       console.log("Quiz Played data:", quizPlayed);
-
-  //       if (Array.isArray(quizPlayed) && quizPlayed.length > 0 && quizPlayed[0]) {
-
-  //       const key = Object.keys(quizPlayed[0])[0];
-  //       console.log("QuizPlayed Key:", key);
-
-  //       const value = quizPlayed[0][key];
-  //       console.log("QuizPlayed Value:", value);
-
-  //       setQuizPlay(value);
-
-  //       if(quizPlay === 1){
-  //         console.log("User has played their first quiz. Awarding first badge...");
-  //       }
-
-  //       // if (value === 1 || value === "1") {
-  //       //   console.log("User has played their first quiz. Awarding first badge...");
-          
-  //       // }
-
-        
-        
-  //     } else {
-  //       console.warn("fetchQuizPlayed returned invalid data:", quizPlayed);
-  //     }
-        
-  //     } catch (error) {
-  //       console.error("Error fetching quiz played status:", error);
-  //     }
-
-  //   };
-  //   firstBadge();
-  // }, [userId, quizPlay]);
 
   const getPerformanceMessage = () => {
     if (percentage >= 80) return "Excellent work!";

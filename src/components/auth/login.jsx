@@ -28,8 +28,6 @@ const Login = () => {
     e.preventDefault(); 
     try {
       const response = await setLoginInfo(credentials);
-      console.log("credentials", credentials);
-      console.log("response", response);
       if(response.success) {
         
         dispatch(login());
@@ -37,18 +35,13 @@ const Login = () => {
         navigate('/'); 
       }
       else{
-        console.log("Login failed with errors:", response.message);
           const errors = response.message;
-
           setErrorMessages(errors);
       }
     } catch (error) {
       console.error('Login failed:', error);
       setErrorMessages(["An unexpected error occurred. Please try again later."]);
     }
-
-    
-    console.log("User logged in successfully", isLoggedIn);
   };
 
   return (

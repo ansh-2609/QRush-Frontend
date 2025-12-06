@@ -1,17 +1,127 @@
 
 import { useLocation, useNavigate } from "react-router-dom";
 import { FaHome, FaTrophy, FaStar, FaHeart } from "react-icons/fa";
+import { useEffect, useRef } from "react";
+import { fetchImageQuizPlayed, fetchImageQuizStatus, setImageQuizPlayed, setImageQuizStatus, setQuizPlayed, fetchQuizPlayed, setSecondCategoryQuizBadge, updateSecondImageQuizBadge, setFirstQuizBadge, updateThirdImageQuizBadge, setThirdImageQuizBadge, updateQuizLordBadge, setQuizLordBadge } from "../../services/appServices";
+import { useSelector } from "react-redux";
 
 const QuizResults = () => {
   const location = useLocation();
   const navigate = useNavigate();
   
-  // Get results from navigation state with fallbacks
   const { score = 0, totalQuestions = 10, quizType = "Identify the Landmark", livesRemaining = 0 } = location.state || {};
 
+  const category = useSelector((state) => state.imageQuiz.subcategory);
+
+  const userId = useSelector((state) => state.auth.userId);
+
   const percentage = Math.round((score / (totalQuestions * 10)) * 100);
+
+
+  const hasRun = useRef(false);
+
+  useEffect(() => {
+    
+
+    const getCompleteStatus = async () => {
+      if (hasRun.current) return;
+      hasRun.current = true;
+    
+      try{
+        const response = await fetchImageQuizStatus(category, userId);
+
+        const imageQuizPlayed = await fetchImageQuizPlayed(userId);
+        if (Array.isArray(imageQuizPlayed) && imageQuizPlayed.length > 0 && imageQuizPlayed[0]) {
+          const key = Object.keys(imageQuizPlayed[0])[0];
+          const value = imageQuizPlayed[0][key];
+
+
+          if(value < 5 && !response[0][category]) {
+
+              await updateSecondImageQuizBadge(userId);
+            
+          }
+
+          if(value < 7 && !response[0][category]) {
+
+            await updateThirdImageQuizBadge(userId); 
+          }
+        } else {
+          console.warn("fetchImageQuizPlayed returned invalid data:", imageQuizPlayed);
+        }
+
+        const response2 = await fetchImageQuizStatus(category, userId);
+        if (Array.isArray(response2) && response2.length > 0 && response2[0]) {
+          const dynamicCategory = Object.keys(response2[0])[0];
+
+          if (!response2[0][dynamicCategory]) {
+            await setImageQuizPlayed(userId);
+            await setQuizPlayed(userId);
+            await setImageQuizStatus(category, userId);
+          }
+        } else {
+          console.warn("fetchImageQuizStatus returned invalid data:", response2);
+        }
+
+        const quizPlayed = await fetchQuizPlayed(userId);
+
+        if (Array.isArray(quizPlayed) && quizPlayed.length > 0 && quizPlayed[0]) {
+          const key = Object.keys(quizPlayed[0])[0];
+          const value = quizPlayed[0][key];
+
+          if (value < 25) {
+            await updateQuizLordBadge(userId, value);
+          }
+        }else {
+          console.warn("fetchQuizPlayed returned invalid data:", quizPlayed);
+        }
+
+        const quizPlayed2 = await fetchQuizPlayed(userId);
+
+        if (Array.isArray(quizPlayed2) && quizPlayed2.length > 0 && quizPlayed2[0]) {
+          const key = Object.keys(quizPlayed2[0])[0];
+          const value = quizPlayed2[0][key];
+
+          if (value === 1 || value === "1") {
+            await setFirstQuizBadge(userId);
+          }
+
+          if(value ===  25) {
+            await setQuizLordBadge(userId);
+          }
+        }else {
+          console.warn("fetchQuizPlayed returned invalid data:", quizPlayed2);
+        }
+
+        const imageQuizPlayed2 = await fetchImageQuizPlayed(userId);
+        if (Array.isArray(imageQuizPlayed2) && imageQuizPlayed2.length > 0 && imageQuizPlayed2[0]) {
+          const key = Object.keys(imageQuizPlayed2[0])[0];
+          const value = imageQuizPlayed2[0][key];
+
+
+          if (value ===  5) {
+            await setSecondCategoryQuizBadge(userId);
+          }
+
+          if(value === 7) {
+            await setThirdImageQuizBadge(userId); 
+          }
+          
+        } else {
+          console.warn("fetchImageQuizPlayed returned invalid data:", imageQuizPlayed2);
+        }
+
+
+
+      }
+      catch (error) {
+        console.error("Error updating quiz status:", error);
+      }
+    }
+    getCompleteStatus();
+  }, [category, userId]);
   
-  const getPerformanceMessage = () => {
+  const getPerformanceMessage = () => { 
     if (percentage >= 90) return "Outstanding! 🎉";
     if (percentage >= 70) return "Excellent! 👏";
     if (percentage >= 50) return "Good job! 👍";
@@ -23,7 +133,7 @@ const QuizResults = () => {
   };
 
   const handleRetryQuiz = () => {
-    navigate('/identify-landmark'); // Adjust to your quiz route
+    navigate('/identify-landmark');
   };
 
   return (

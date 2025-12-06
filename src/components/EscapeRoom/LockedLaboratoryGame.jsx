@@ -9,6 +9,8 @@ import {
   FaArrowLeft,
   FaRedo,
 } from "react-icons/fa";
+import QuizFinished from "./QuizFinished";
+import { useSelector } from "react-redux";
 
 const LockedLaboratoryGame = () => {
   const [currentPuzzle, setCurrentPuzzle] = useState(0);
@@ -19,169 +21,14 @@ const LockedLaboratoryGame = () => {
   const [gameStatus, setGameStatus] = useState("playing");
   const [timer, setTimer] = useState(0);
 
-  const labPuzzles = [
-  {
-    id: 1,
-    title: "The Cryogenic Chamber",
-    scenario:
-      "A cryo-lock shows the code '–273'. Nearby, a note reads: 'At this temperature, motion stops.' What’s the unlock code word?",
-    clues: [
-      "–273°C is a special temperature in physics.",
-      "It’s when atomic motion nearly ceases.",
-      "Scientists call it 'absolute zero'.",
-    ],
-    answer: "absolute zero",
-    solution: "–273°C = 0 Kelvin = Absolute Zero.",
-    hint: "Think of the coldest possible temperature.",
-    difficulty: "Medium",
-    theme: "lab",
-  },
-  {
-    id: 2,
-    title: "The Glass Cylinder Riddle",
-    scenario:
-      "Three test tubes are labeled A, B, and C. A floats, B sinks, and C stays suspended in the middle. The password equals the word describing the *density of C* compared to the liquid.",
-    clues: [
-      "Floating → less dense.",
-      "Sinking → more dense.",
-      "Suspended → equal density.",
-    ],
-    answer: "equal",
-    solution: "C’s density equals that of the liquid.",
-    hint: "What condition makes an object neither sink nor float?",
-    difficulty: "Medium",
-    theme: "lab",
-  },
-  {
-    id: 3,
-    title: "The Coded Beakers",
-    scenario:
-      "Four beakers are labeled: H, He, Li, Be. A hidden code says: 'Combine their numbers.' Another clue says: 'Periodic table holds the key.'",
-    clues: [
-      "Atomic numbers: H=1, He=2, Li=3, Be=4.",
-      "Maybe the password is the concatenation or sum.",
-    ],
-    answer: "1234",
-    solution: "Reading atomic numbers in order: 1-2-3-4.",
-    hint: "Don’t add, read them in sequence.",
-    difficulty: "Medium",
-    theme: "lab",
-  },
-  {
-    id: 4,
-    title: "The Broken Microscope",
-    scenario:
-      "The microscope’s lenses are numbered 10×, 20×, and 40×. The screen reads 'Combine for full power'. A note says: 'It’s a product, not a sum.'",
-    clues: [
-      "Total magnification = eyepiece × objective.",
-      "Assume eyepiece is 10×, objective 40×.",
-    ],
-    answer: "400",
-    solution: "10 × 40 = 400 total magnification.",
-    hint: "Think multiplication of magnifying lenses.",
-    difficulty: "Hard",
-    theme: "lab",
-  },
-  {
-    id: 5,
-    title: "The Laser Alignment Puzzle",
-  scenario:
-    "You find a laser grid blocking the lab door. A nearby console says: 'Red reflects at 90°, Green passes straight, Blue refracts.' The control panel shows a pattern: 🔴🟩🔵🟩🔴. The passcode is the number of beams that reach the end without changing direction.",
-  clues: [
-    "Red reflects → changes direction.",
-    "Green passes straight → unchanged.",
-    "Blue refracts → changes direction.",
-    "Only Green lasers go straight through.",
-  ],
-  answer: "2",
-  solution: "Pattern: R(×), G(✓), B(×), G(✓), R(×) → Only 2 green beams go straight.",
-  hint: "Count only the beams that do not change direction.",
-  difficulty: "Medium",
-  theme: "lab",
-  },
-  {
-    id: 6,
-    title: "The Chemical Weigh-In",
-    scenario:
-      "Three jars labeled 'Carbon', 'Oxygen', and 'CO₂'. Their labels read 12, 16, and __. The keypad expects the missing number.",
-    clues: [
-      "CO₂ = 1 Carbon + 2 Oxygen atoms.",
-      "Atomic masses: 12 + (16×2).",
-    ],
-    answer: "44",
-    solution: "12 + 32 = 44.",
-    hint: "Add the atomic masses.",
-    difficulty: "Hard",
-    theme: "lab",
-  },
-  {
-    id: 7,
-    title: "The Time Freeze",
-    scenario:
-      "The lab clock stopped at '13:37'. A sticky note says 'It’s Leet time!'. The code expects a word.",
-    clues: [
-      "1337 in 'leet speak' means a word used by hackers.",
-      "It reads as 'leet' or 'elite'.",
-    ],
-    answer: "elite",
-    solution: "1337 → leet → elite.",
-    hint: "Think internet 'leet' code.",
-    difficulty: "Medium",
-    theme: "lab",
-  },
-  {
-    id: 8,
-    title: "The Chemical Mirror",
-    scenario:
-      "On a mirror, you see a chemical formula that looks like 'COOH'. But reflected, it still reads 'HOOC'. The code is what chemists call this type of structure.",
-    clues: [
-      "It’s symmetric when reversed.",
-      "COOH is a functional group that appears at both ends of some molecules.",
-    ],
-    answer: "carboxylic acid",
-    solution: "COOH group → Carboxylic acid.",
-    hint: "Think organic chemistry functional groups.",
-    difficulty: "Hard",
-    theme: "lab",
-  },
-  {
-    id: 9,
-    title: "The Lab Equation Lock",
-    scenario:
-      "The lock shows: (6 × 2) + (8 ÷ 4) – 3 = ? A note says: 'Order matters!'",
-    clues: [
-      "Follow PEMDAS: Multiply, Divide, Add, Subtract.",
-      "(6×2)=12, (8÷4)=2, so 12+2–3.",
-    ],
-    answer: "11",
-    solution: "12+2–3 = 11.",
-    hint: "Respect the order of operations.",
-    difficulty: "Medium",
-    theme: "lab",
-  },
-  {
-    id: 10,
-    title: "The AI Control Panel",
-    scenario:
-      "The console says: 'Truth = 1, False = 0.' Then shows (1 AND 0) OR 1. You must type the resulting code.",
-    clues: [
-      "Evaluate logic gates: AND first, then OR.",
-      "(1 AND 0) = 0 → (0 OR 1) = 1.",
-    ],
-    answer: "1",
-    solution: "Logical result = 1.",
-    hint: "Use Boolean logic rules.",
-    difficulty: "Hard",
-    theme: "lab",
-  },
-];
-
+  const labPuzzles = useSelector((store) => store.escapeRoom.questions);
 
   // Timer
   useEffect(() => {
+    if (gameStatus === "completed") return; 
     const interval = setInterval(() => setTimer((t) => t + 1), 1000);
     return () => clearInterval(interval);
-  }, []);
+  }, [gameStatus]);
 
   const formatTime = (s) => `${Math.floor(s / 60)}:${(s % 60).toString().padStart(2, "0")}`;
 
@@ -228,27 +75,12 @@ const LockedLaboratoryGame = () => {
 
   if (gameStatus === "completed") {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-cyan-50 to-blue-100 flex items-center justify-center p-4">
-        <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full text-center">
-          <div className="text-6xl mb-4">🔬</div>
-          <h1 className="text-3xl font-bold text-blue-800 mb-2">
-            Lab Escape Successful!
-          </h1>
-          <p className="text-gray-700 mb-4">
-            You solved all {labPuzzles.length} puzzles!
-          </p>
-          <p className="text-xl font-semibold text-blue-600 mb-6">
-            Time: {formatTime(timer)}
-          </p>
-          <button
-            onClick={resetGame}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105"
-          >
-            <FaRedo className="inline mr-2" />
-            Play Again
-          </button>
-        </div>
-      </div>
+      <QuizFinished
+        totalPuzzles={labPuzzles.length}
+        timer={timer}
+        formatTime={formatTime}
+        resetGame={resetGame}
+      />
     );
   }
 
@@ -259,7 +91,7 @@ const LockedLaboratoryGame = () => {
         <div className="bg-white rounded-2xl shadow-lg p-6 mb-6">
           <div className="flex justify-between items-center mb-4">
             <h1 className="text-2xl font-bold text-gray-800 flex items-center">
-              <FaLock className="mr-3 text-blue-500" /> Escape Room 2: The Locked Laboratory
+              <FaLock className="mr-3 text-blue-500" /> Escape Room 3: The Locked Laboratory
             </h1>
             <div className="text-right space-y-1">
               <div className="flex items-center text-gray-600">

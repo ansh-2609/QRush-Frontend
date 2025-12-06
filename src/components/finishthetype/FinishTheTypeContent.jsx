@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 const FinishTheTypeContent = () => {
   const finishQuiz = useSelector((store) => store.finishQuiz);
   const questions = finishQuiz.questions || [];
-   const category = useSelector((store) => store.quiz.category);
+   const subcategory = useSelector((store) => store.finishQuiz.subcategory);
  
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ const FinishTheTypeContent = () => {
       answers[key] = value;
     });
     dispatch(submitAnswer(answers));
-    navigate(`/quiz-type/finish/${category}/result`);
+    navigate(`/quiz-type/finish/${subcategory}/result`);
   };
 
   return (
