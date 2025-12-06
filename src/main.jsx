@@ -22,7 +22,6 @@ const Finished = lazy(() => import('./components/finishthetype/Finished.jsx'));
 const IdentifyFromImage = lazy(() => import('./components/identifyfromimg/IdentifyFromImg.jsx'));
 const IdentifyFromImgContent = lazy(() => import('./components/identifyfromimg/IdentifyFromImgContent.jsx'));
 const QuizResults = lazy(() => import('./components/identifyfromimg/QuizResult.jsx'));
-const EscapeRoomGame = lazy(() => import('./components/escapePuzzle/escapePuzzle.jsx'));
 const EscapeRoom = lazy(() => import('./components/EscapeRoom/EscapeRoom.jsx'));
 const Badges = lazy(() => import('./components/Badges.jsx'));
 const CategoryContent = lazy(() => import('./components/categories/CategoryContent.jsx'));
@@ -75,7 +74,6 @@ const router = createBrowserRouter([
           { path: "/quiz-type/identify/instruments/result", element: <QuizResults /> },
 
           // Escape rooms
-          { path: "/quiz-type/puzzled", element: <EscapeRoomGame /> },
           { path: "/quiz-type/escape-rooms", element: <EscapeRoom /> },
           { path: "/quiz-type/escape-rooms/temple", element: <AncientTempleGame /> },
           { path: "/quiz-type/escape-rooms/island", element: <IslandMysteryGame /> },
