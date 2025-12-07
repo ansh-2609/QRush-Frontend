@@ -18,7 +18,7 @@ export const fetchTodayWord = async (id) => {
 
 export const fetchQuestionsByCategory = async (category) => {
   try {
-    const response = await fetch(`${API_URL}/categories/${category}`);
+    const response = await fetch(`${API_URL}/categories/${category}`,{ credentials: "include" });
 
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
