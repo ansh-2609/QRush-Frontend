@@ -23,8 +23,7 @@ function App() {
           dispatch(setAuthStatus(response.isLoggedIn));
         } catch (error) {
           console.error("Auth verification failed:", error);
-          // If verification fails, log out
-          dispatch(setAuthStatus(false));
+          // Do not log out on error, keep persisted state
         }
       }
     };
