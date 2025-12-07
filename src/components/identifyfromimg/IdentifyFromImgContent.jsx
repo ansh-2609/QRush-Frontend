@@ -297,13 +297,24 @@ const IdentifyFromImgContent = () => {
           <span className="text-gray-700">Home</span>
         </button>
 
-        <div className="text-center">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-sky-600 to-blue-600 bg-clip-text text-transparent">
+        {/* <div className="text-center">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-sky-600 to-blue-600 bg-clip-text text-transparent pb-2 flex items-center">
             Identify the {capitalizeFirstLetter(subcategory)}
           </h1>
           <p className="text-gray-600 mt-2 text-sm sm:text-base">
             Question {imageQuizs.currentQuestionIndex + 1} of {imageQuizs.questions.length}
           </p>
+        </div> */}
+
+        <div className="flex-1 flex justify-center">
+          <div className="text-center">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-sky-600 to-blue-600 bg-clip-text text-transparent pb-2 flex items-center">
+              Identify the {capitalizeFirstLetter(subcategory)}
+            </h1>
+            <p className="text-gray-600 mt-2 text-sm sm:text-base">
+              Question {imageQuizs.currentQuestionIndex + 1} of {imageQuizs.questions.length}
+            </p>
+          </div>
         </div>
 
         <div className="flex flex-wrap items-center gap-4 sm:gap-6 justify-center md:justify-end">
