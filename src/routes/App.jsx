@@ -11,21 +11,26 @@ import { checkAuthStatus } from "../services/appServices";
 function App() {
   const dispatch = useDispatch();
   const fetchStatus = useSelector((store) => store.fetchStatus);
+  const isLoggedIn = useSelector((store) => store.auth.isLoggedIn);
 
   const isLoading = fetchStatus.fetchDone;
 
   useEffect(() => {
     const verifyAuth = async () => {
-      try {
-        const response = await checkAuthStatus();
-        dispatch(setAuthStatus(response.isLoggedIn));
-      } catch (error) {
-        console.error("Auth verification failed:", error);
+      if (isLoggedIn) {
+        try {
+          const response = await checkAuthStatus();
+          dispatch(setAuthStatus(response.isLoggedIn));
+        } catch (error) {
+          console.error("Auth verification failed:", error);
+          // If verification fails, log out
+          dispatch(setAuthStatus(false));
+        }
       }
     };
 
     verifyAuth();
-  }, [dispatch]);
+  }, [dispatch, isLoggedIn]);
 
   return (
     <>
