@@ -51,10 +51,10 @@ const Categories = () => {
     } catch (err) {
       console.error("Failed to update play count", err);
     }
-
-    navigate(`/categories/${category}`);
     const data = await fetchQuestionsByCategory(category);
     dispatch(setQuestions(data));
+    
+    navigate(`/categories/${category}`);
   };
 
   return (

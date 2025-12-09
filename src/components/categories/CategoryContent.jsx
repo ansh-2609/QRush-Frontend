@@ -1,16 +1,30 @@
+
 import QuestionCard from "./QuestionCard";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { nextQuestion, setFinished, submitAnswer } from "../../store/quizSlice";
-import { useDispatch } from "react-redux";
 import QuizFinished from "./QuizFinished";
 
 const CategoryContent = () => {
   const quizs = useSelector((store) => store.quiz);
-  const category = useSelector((store) => store.quiz.category);
-
+  const category = quizs.category;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  return ( 
+  // 🔥 Redirect on refresh or if quiz state is empty
+  useEffect(() => {
+    if (quizs.questions.length === 0) {
+      navigate("/categories");
+    }
+  }, [quizs.questions, navigate]);
+
+  // ⏳ If no questions, don't render QuestionCard
+  if (quizs.questions.length === 0) {
+    return null; // Or a small message while redirecting
+  }
+
+  return (
     <>
       {quizs.isFinished ? (
         <QuizFinished
@@ -27,7 +41,7 @@ const CategoryContent = () => {
             if (quizs.currentQuestionIndex < quizs.questions.length - 1) {
               setTimeout(() => {
                 dispatch(nextQuestion());
-              }, 500); // delay so user sees click
+              }, 500);
             } else {
               dispatch(setFinished(true));
             }

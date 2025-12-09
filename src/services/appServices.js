@@ -1,9 +1,11 @@
+import { apiFetch } from "./apiClient";
+
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
 
 
 export const fetchTodayWord = async (id) => {
   try {
-    const response = await fetch(`${API_URL}/todaysword/${id}`);
+    const response = await apiFetch(`${API_URL}/todaysword/${id}`);
 
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
@@ -18,7 +20,7 @@ export const fetchTodayWord = async (id) => {
 
 export const fetchQuestionsByCategory = async (category) => {
   try {
-    const response = await fetch(`${API_URL}/categories/${category}`,{ credentials: "include" });
+    const response = await apiFetch(`${API_URL}/categories/${category}`);
 
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
@@ -33,7 +35,7 @@ export const fetchQuestionsByCategory = async (category) => {
 
 export const fetchQuestionsByFinishCategory = async (subcategory) => {
   try {
-    const response = await fetch(`${API_URL}/quiz-type/finish/${subcategory}`);
+    const response = await apiFetch(`${API_URL}/quiz-type/finish/${subcategory}`);
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
     }
@@ -47,7 +49,7 @@ export const fetchQuestionsByFinishCategory = async (subcategory) => {
 
 export const fetchQuestionsByIdentifyCategory = async (subcategory) => {
   try {
-    const response = await fetch(`${API_URL}/quiz-type/identify/${subcategory}`);
+    const response = await apiFetch(`${API_URL}/quiz-type/identify/${subcategory}`);
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
     }
@@ -61,7 +63,7 @@ export const fetchQuestionsByIdentifyCategory = async (subcategory) => {
 
 export const fetchQuestionsByEscapeRoom = async (subcategory) => {
   try {
-    const response = await fetch(`${API_URL}/quiz-type/escape-rooms/${subcategory}`);
+    const response = await apiFetch(`${API_URL}/quiz-type/escape-rooms/${subcategory}`);
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
     }
@@ -76,7 +78,7 @@ export const fetchQuestionsByEscapeRoom = async (subcategory) => {
 
 export const fetchBadges = async () => {
   try {
-    const response = await fetch(`${API_URL}/badges`);
+    const response = await apiFetch(`${API_URL}/badges`);
 
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
@@ -91,12 +93,11 @@ export const fetchBadges = async () => {
 
 export const setSignupInfo = async (signupData) => {
   try {
-    const response = await fetch(`${API_URL}/signup-submit`, {
+    const response = await apiFetch(`${API_URL}/signup-submit`, {
       method: `POST`,
       headers: {
         'Content-Type': 'application/json',
       },
-      credentials: `include`,
       body: JSON.stringify(signupData),
     });
 
@@ -117,12 +118,11 @@ export const setSignupInfo = async (signupData) => {
 
 export const setLoginInfo = async (loginData) => {
   try {
-    const response = await fetch(`${API_URL}/login-submit`, {
+    const response = await apiFetch(`${API_URL}/login-submit`, {
       method: 'POST',
       headers: {
         'Content-Type':'application/json',
       },
-      credentials: 'include',
       body: JSON.stringify(loginData),
     });
 
@@ -139,9 +139,8 @@ export const setLoginInfo = async (loginData) => {
 
 export const checkAuthStatus = async () => {
   try {
-    const response = await fetch(`${API_URL}/check-auth`, {
-      method: `GET`, 
-      credentials: `include`,
+    const response = await apiFetch(`${API_URL}/check-auth`, {
+      method: `GET`
     });
 
     return await response.json();
@@ -153,9 +152,8 @@ export const checkAuthStatus = async () => {
 
 export const setLogoutInfo = async () => {
   try {
-    const response = await fetch(`${API_URL}/logout-submit`, {
-      method: `POST`,
-      credentials: `include`, 
+    const response = await apiFetch(`${API_URL}/logout-submit`, {
+      method: `POST`
     });
 
     if (!response.ok) {
@@ -172,7 +170,7 @@ export const setLogoutInfo = async () => {
 
 export const fetchPlayCount = async(category) => {
   try {
-    const response = await fetch(`${API_URL}/api/playcount/${category}`, {method : "GET"});
+    const response = await apiFetch(`${API_URL}/api/playcount/${category}`, {method : "GET"});
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
     }
@@ -186,7 +184,7 @@ export const fetchPlayCount = async(category) => {
 
 export const setPlayCount = async (category) => {
   try {
-    const response = await fetch(`${API_URL}/api/playcount/${category}`, { method: "PUT" });
+    const response = await apiFetch(`${API_URL}/api/playcount/${category}`, { method: "PUT" });
 
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
@@ -202,7 +200,7 @@ export const setPlayCount = async (category) => {
 
 export const fetchCStatus = async(category, userId) => {
   try {
-    const response = await fetch(`${API_URL}/api/cstatus/${category}/${userId}`, {method : "GET"});
+    const response = await apiFetch(`${API_URL}/api/cstatus/${category}/${userId}`, {method : "GET"});
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
     }
@@ -216,7 +214,7 @@ export const fetchCStatus = async(category, userId) => {
 
 export const setCStatus = async (category, userId) => {
   try {
-    const response = await fetch(`${API_URL}/api/cstatus/${category}/${userId}`, { method: "PUT" });
+    const response = await apiFetch(`${API_URL}/api/cstatus/${category}/${userId}`, { method: "PUT" });
 
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
@@ -231,7 +229,7 @@ export const setCStatus = async (category, userId) => {
 
 export const fetchImageQuizStatus = async(category,userId) => {
   try {
-    const response = await fetch(`${API_URL}/api/imagequizstatus/${category}/${userId}`, {method : "GET"});
+    const response = await apiFetch(`${API_URL}/api/imagequizstatus/${category}/${userId}`, {method : "GET"});
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
     }
@@ -245,7 +243,7 @@ export const fetchImageQuizStatus = async(category,userId) => {
 
 export const setImageQuizStatus = async (category, userId) => {
   try {
-    const response = await fetch(`${API_URL}/api/imagequizstatus/${category}/${userId}`, { method: "PUT" });
+    const response = await apiFetch(`${API_URL}/api/imagequizstatus/${category}/${userId}`, { method: "PUT" });
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
     }
@@ -258,7 +256,7 @@ export const setImageQuizStatus = async (category, userId) => {
 
 export const fetchFinishQuizStatus = async(category,userId) => {
   try {
-    const response = await fetch(`${API_URL}/api/finishquizstatus/${category}/${userId}`, {method : "GET"});
+    const response = await apiFetch(`${API_URL}/api/finishquizstatus/${category}/${userId}`, {method : "GET"});
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
     }
@@ -272,7 +270,7 @@ export const fetchFinishQuizStatus = async(category,userId) => {
 
 export const setFinishQuizStatus = async (category, userId) => {
   try {
-    const response = await fetch(`${API_URL}/api/finishquizstatus/${category}/${userId}`, { method: "PUT" });
+    const response = await apiFetch(`${API_URL}/api/finishquizstatus/${category}/${userId}`, { method: "PUT" });
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
     }
@@ -285,7 +283,7 @@ export const setFinishQuizStatus = async (category, userId) => {
 
 export const fetchEscapeQuizStatus = async(category,userId) => {
   try {
-    const response = await fetch(`${API_URL}/api/escapequizstatus/${category}/${userId}`, {method : "GET"});
+    const response = await apiFetch(`${API_URL}/api/escapequizstatus/${category}/${userId}`, {method : "GET"});
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
     }
@@ -299,7 +297,7 @@ export const fetchEscapeQuizStatus = async(category,userId) => {
 
 export const setEscapeQuizStatus = async (category, userId) => {
   try {
-    const response = await fetch(`${API_URL}/api/escapequizstatus/${category}/${userId}`, { method: "PUT" });
+    const response = await apiFetch(`${API_URL}/api/escapequizstatus/${category}/${userId}`, { method: "PUT" });
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
     }
@@ -313,7 +311,7 @@ export const setEscapeQuizStatus = async (category, userId) => {
 
 export const fetchQuizPlayed = async(id) => {
   try {
-    const response = await fetch(`${API_URL}/api/quizplayed/${id}`, {method : "GET"});
+    const response = await apiFetch(`${API_URL}/api/quizplayed/${id}`, {method : "GET"});
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
     }
@@ -327,7 +325,7 @@ export const fetchQuizPlayed = async(id) => {
 
 export const setQuizPlayed = async (id) => {
   try {
-    const response = await fetch(`${API_URL}/api/quizplayed/${id}`, { method: "PUT" });
+    const response = await apiFetch(`${API_URL}/api/quizplayed/${id}`, { method: "PUT" });
 
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
@@ -342,7 +340,7 @@ export const setQuizPlayed = async (id) => {
 
 export const fetchBadgesByUser = async(userId) => {
   try {
-    const response = await fetch(`${API_URL}/api/userbadges/${userId}`, {method : "GET"});
+    const response = await apiFetch(`${API_URL}/api/userbadges/${userId}`, {method : "GET"});
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
     }
@@ -356,7 +354,7 @@ export const fetchBadgesByUser = async(userId) => {
 
 export const setFirstQuizBadge = async (userId) => {
   try {
-    const response = await fetch(`${API_URL}/api/badges/${userId}/firstcategoryquiz`, { method: "PUT", credentials: `include` });
+    const response = await apiFetch(`${API_URL}/api/badges/${userId}/firstcategoryquiz`, { method: "PUT"});
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
     }
@@ -368,7 +366,7 @@ export const setFirstQuizBadge = async (userId) => {
 
 export const setSecondCategoryQuizBadge = async (userId) => {
   try {
-    const response = await fetch(`${API_URL}/api/badges/${userId}/secondcategoryquiz`, { method: "PUT", credentials: `include` });
+    const response = await apiFetch(`${API_URL}/api/badges/${userId}/secondcategoryquiz`, { method: "PUT"});
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
     }
@@ -381,7 +379,7 @@ export const setSecondCategoryQuizBadge = async (userId) => {
 
 export const updateSecondCategoryQuizBadge = async (userId) => {
   try {
-    const response = await fetch(`${API_URL}/api/badges/${userId}/secondcategoryquizprogress`, { method: "PUT", credentials: `include` });
+    const response = await apiFetch(`${API_URL}/api/badges/${userId}/secondcategoryquizprogress`, { method: "PUT"});
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
     }
@@ -394,7 +392,7 @@ export const updateSecondCategoryQuizBadge = async (userId) => {
 
 export const setThirdCategoryQuizBadge = async (userId) => {
   try {
-    const response = await fetch(`${API_URL}/api/badges/${userId}/thirdcategoryquiz`, { method: "PUT", credentials: `include` });
+    const response = await apiFetch(`${API_URL}/api/badges/${userId}/thirdcategoryquiz`, { method: "PUT"});
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
     }
@@ -407,7 +405,7 @@ export const setThirdCategoryQuizBadge = async (userId) => {
 
 export const updateThirdCategoryQuizBadge = async (userId) => {
   try {
-    const response = await fetch(`${API_URL}/api/badges/${userId}/thirdcategoryquizprogress`, { method: "PUT", credentials: `include` });
+    const response = await apiFetch(`${API_URL}/api/badges/${userId}/thirdcategoryquizprogress`, { method: "PUT"});
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
     }
@@ -420,7 +418,7 @@ export const updateThirdCategoryQuizBadge = async (userId) => {
 
 export const setSecondImageQuizBadge = async (userId) => {
   try {
-    const response = await fetch(`${API_URL}/api/badges/${userId}/secondimagequiz`, { method: "PUT", credentials: `include` });
+    const response = await apiFetch(`${API_URL}/api/badges/${userId}/secondimagequiz`, { method: "PUT"});
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
     }
@@ -433,7 +431,7 @@ export const setSecondImageQuizBadge = async (userId) => {
 
 export const updateSecondImageQuizBadge = async(userId) => {
   try {
-    const response = await fetch(`${API_URL}/api/badges/${userId}/secondimagequizprogress`, { method: "PUT", credentials: `include` });
+    const response = await apiFetch(`${API_URL}/api/badges/${userId}/secondimagequizprogress`, { method: "PUT"});
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
     }
@@ -446,7 +444,7 @@ export const updateSecondImageQuizBadge = async(userId) => {
 
 export const setThirdImageQuizBadge = async (userId) => {
   try {
-    const response = await fetch(`${API_URL}/api/badges/${userId}/thirdimagequiz`, { method: "PUT", credentials: `include` });
+    const response = await apiFetch(`${API_URL}/api/badges/${userId}/thirdimagequiz`, { method: "PUT"});
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
     }
@@ -459,7 +457,7 @@ export const setThirdImageQuizBadge = async (userId) => {
 
 export const updateThirdImageQuizBadge = async(userId) => {
   try {
-    const response = await fetch(`${API_URL}/api/badges/${userId}/thirdimagequizprogress`, { method: "PUT", credentials: `include` });
+    const response = await apiFetch(`${API_URL}/api/badges/${userId}/thirdimagequizprogress`, { method: "PUT"});
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
     }
@@ -472,7 +470,7 @@ export const updateThirdImageQuizBadge = async(userId) => {
 
 export const setSecondFinishQuizBadge = async (userId) => {
   try {
-    const response = await fetch(`${API_URL}/api/badges/${userId}/secondfinishquiz`, { method: "PUT", credentials: `include` });
+    const response = await apiFetch(`${API_URL}/api/badges/${userId}/secondfinishquiz`, { method: "PUT"});
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
     }
@@ -485,7 +483,7 @@ export const setSecondFinishQuizBadge = async (userId) => {
 
 export const updateSecondFinishQuizBadge = async(userId) => {
   try {
-    const response = await fetch(`${API_URL}/api/badges/${userId}/secondfinishquizprogress`, { method: "PUT", credentials: `include` });
+    const response = await apiFetch(`${API_URL}/api/badges/${userId}/secondfinishquizprogress`, { method: "PUT"});
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
     }
@@ -498,7 +496,7 @@ export const updateSecondFinishQuizBadge = async(userId) => {
 
 export const setFirstEscapeQuizBadge = async (userId) => {
   try {
-    const response = await fetch(`${API_URL}/api/badges/${userId}/firstescapequiz`, { method: "PUT", credentials: `include` });
+    const response = await apiFetch(`${API_URL}/api/badges/${userId}/firstescapequiz`, { method: "PUT"});
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
     }
@@ -511,7 +509,7 @@ export const setFirstEscapeQuizBadge = async (userId) => {
 
 export const setSecondEscapeQuizBadge = async (userId) => {
   try {
-    const response = await fetch(`${API_URL}/api/badges/${userId}/secondescapequiz`, { method: "PUT", credentials: `include` });
+    const response = await apiFetch(`${API_URL}/api/badges/${userId}/secondescapequiz`, { method: "PUT"});
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
     }
@@ -524,7 +522,7 @@ export const setSecondEscapeQuizBadge = async (userId) => {
 
 export const setThirdEscapeQuizBadge = async (userId) => {
   try {
-    const response = await fetch(`${API_URL}/api/badges/${userId}/thirdescapequiz`, { method: "PUT", credentials: `include` });
+    const response = await apiFetch(`${API_URL}/api/badges/${userId}/thirdescapequiz`, { method: "PUT"});
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
     }
@@ -538,7 +536,7 @@ export const setThirdEscapeQuizBadge = async (userId) => {
 
 export const setFourthEscapeQuizBadge = async (userId) => {
   try {
-    const response = await fetch(`${API_URL}/api/badges/${userId}/fourthescapequiz`, { method: "PUT", credentials: `include` });
+    const response = await apiFetch(`${API_URL}/api/badges/${userId}/fourthescapequiz`, { method: "PUT"});
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
     }
@@ -551,7 +549,7 @@ export const setFourthEscapeQuizBadge = async (userId) => {
 
 export const updateFourthEscapeQuizBadge = async(userId) => {
   try {
-    const response = await fetch(`${API_URL}/api/badges/${userId}/fourthescapequizprogress`, { method: "PUT", credentials: `include` });
+    const response = await apiFetch(`${API_URL}/api/badges/${userId}/fourthescapequizprogress`, { method: "PUT"});
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
     }
@@ -564,7 +562,7 @@ export const updateFourthEscapeQuizBadge = async(userId) => {
 
 export const updateQuizLordBadge = async(userId, value) => {
   try {
-    const response = await fetch(`${API_URL}/api/badges/${userId}/${value}/quizlordprogress`, { method: "PUT", credentials: `include` });
+    const response = await apiFetch(`${API_URL}/api/badges/${userId}/${value}/quizlordprogress`, { method: "PUT"});
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
     }
@@ -577,7 +575,7 @@ export const updateQuizLordBadge = async(userId, value) => {
 
 export const setQuizLordBadge = async (userId) => {
   try {
-    const response = await fetch(`${API_URL}/api/badges/${userId}/quizlord`, { method: "PUT", credentials: `include` });
+    const response = await apiFetch(`${API_URL}/api/badges/${userId}/quizlord`, { method: "PUT"});
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
     }
@@ -590,7 +588,7 @@ export const setQuizLordBadge = async (userId) => {
 
 export const fetchCategoryQuizPlayed = async(userId) => {
   try {
-    const response = await fetch(`${API_URL}/api/categoryquizplayed/${userId}`, {method : "GET"}); 
+    const response = await apiFetch(`${API_URL}/api/categoryquizplayed/${userId}`, {method : "GET"}); 
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
     }
@@ -604,7 +602,7 @@ export const fetchCategoryQuizPlayed = async(userId) => {
 
 export const setCategoryQuizPlayed = async (userId) => {
   try {
-    const response = await fetch(`${API_URL}/api/categoryquizplayed/${userId}`, { method: "PUT" }); 
+    const response = await apiFetch(`${API_URL}/api/categoryquizplayed/${userId}`, { method: "PUT" }); 
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
     }
@@ -617,7 +615,7 @@ export const setCategoryQuizPlayed = async (userId) => {
 
 export const fetchImageQuizPlayed = async(userId) => {
   try {
-    const response = await fetch(`${API_URL}/api/imagequizplayed/${userId}`, {method : "GET"});
+    const response = await apiFetch(`${API_URL}/api/imagequizplayed/${userId}`, {method : "GET"});
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
     }
@@ -631,7 +629,7 @@ export const fetchImageQuizPlayed = async(userId) => {
 
 export const setImageQuizPlayed = async (userId) => {
   try {
-    const response = await fetch(`${API_URL}/api/imagequizplayed/${userId}`, { method: "PUT" });
+    const response = await apiFetch(`${API_URL}/api/imagequizplayed/${userId}`, { method: "PUT" });
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
     }
@@ -645,7 +643,7 @@ export const setImageQuizPlayed = async (userId) => {
 
 export const fetchFinishQuizPlayed = async(userId) => {
   try {
-    const response = await fetch(`${API_URL}/api/finishquizplayed/${userId}`, {method : "GET"});
+    const response = await apiFetch(`${API_URL}/api/finishquizplayed/${userId}`, {method : "GET"});
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
     }
@@ -659,7 +657,7 @@ export const fetchFinishQuizPlayed = async(userId) => {
 
 export const setFinishQuizPlayed = async (userId) => {
   try {
-    const response = await fetch(`${API_URL}/api/finishquizplayed/${userId}`, { method: "PUT" });
+    const response = await apiFetch(`${API_URL}/api/finishquizplayed/${userId}`, { method: "PUT" });
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
     }
@@ -673,7 +671,7 @@ export const setFinishQuizPlayed = async (userId) => {
 
 export const fetchEscapeQuizPlayed = async(userId) => {
   try {
-    const response = await fetch(`${API_URL}/api/escapequizplayed/${userId}`, {method : "GET"});
+    const response = await apiFetch(`${API_URL}/api/escapequizplayed/${userId}`, {method : "GET"});
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
     }
@@ -687,7 +685,7 @@ export const fetchEscapeQuizPlayed = async(userId) => {
 
 export const setEscapeQuizPlayed = async (userId) => {
   try {
-    const response = await fetch(`${API_URL}/api/escapequizplayed/${userId}`, { method: "PUT" });
+    const response = await apiFetch(`${API_URL}/api/escapequizplayed/${userId}`, { method: "PUT" });
     if (!response.ok) {
       throw new Error(`Network response was not ok`);
     }
