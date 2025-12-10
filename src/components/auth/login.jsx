@@ -31,7 +31,7 @@ const Login = () => {
       if(response.success) {
         
         dispatch(login());
-        dispatch(setUserId(response.id));
+        dispatch(setUserId(response.user.id));
         navigate('/'); 
       }
       else{
