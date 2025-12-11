@@ -28,7 +28,7 @@ const LockedLaboratoryGame = () => {
 
   useEffect(() => { 
     if (labPuzzles.length === 0) {
-      navigate("/quiz-type/escape-room");
+      navigate("/quiz-type/escape-rooms");
     }
   }, [labPuzzles, navigate]);
 

@@ -27,7 +27,7 @@ const AncientTempleGame = () => {
 
   useEffect(() => { 
     if (templePuzzles.length === 0) {
-      navigate("/quiz-type/escape-room");
+      navigate("/quiz-type/escape-rooms");
     }
   }, [templePuzzles, navigate]);
 

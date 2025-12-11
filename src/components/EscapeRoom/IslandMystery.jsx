@@ -28,7 +28,7 @@ const IslandMysteryGame = () => {
 
   useEffect(() => { 
     if (islandPuzzles.length === 0) {
-      navigate("/quiz-type/escape-room");
+      navigate("/quiz-type/escape-rooms");
     }
   }, [islandPuzzles, navigate]);
 
