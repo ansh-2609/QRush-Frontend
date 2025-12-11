@@ -14,7 +14,7 @@ const Badges = () => {
     unlockedBadges: 0, 
     completionRate: 0
   });
-
+ 
   const userId  = useSelector((state) => state.auth.userId);
   useEffect(() => {
     const loadBadges = async () => {
