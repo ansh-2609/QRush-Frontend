@@ -19,7 +19,8 @@ const authSlice = createSlice({
       state.userId = null;
     },
     setAuthStatus: (state, action) => {
-      state.isLoggedIn = action.payload;
+      state.isLoggedIn = action.payload.isLoggedIn;
+      state.userId = action.payload.userId;
       state.authLoaded = true;
     },
   },

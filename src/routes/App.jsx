@@ -19,7 +19,7 @@ function App() {
     const verifyAuth = async () => {
       try {
         const response = await checkAuthStatus();
-        dispatch(setAuthStatus(response.isLoggedIn));
+        dispatch(setAuthStatus(response));
       } catch (error) {
         console.error("Auth verification failed:", error);
       }
