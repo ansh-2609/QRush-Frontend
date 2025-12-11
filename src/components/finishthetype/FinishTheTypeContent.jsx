@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { submitAnswer } from "../../store/finishQuizSlice";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 
 const FinishTheTypeContent = () => {
   const finishQuiz = useSelector((store) => store.finishQuiz);

@@ -11,6 +11,7 @@ import {
 } from "react-icons/fa";
 import QuizFinished from "./QuizFinished";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const LockedLaboratoryGame = () => {
   const [currentPuzzle, setCurrentPuzzle] = useState(0);
@@ -22,6 +23,7 @@ const LockedLaboratoryGame = () => {
   const [timer, setTimer] = useState(0);
 
   const labPuzzles = useSelector((store) => store.escapeRoom.questions);
+  const navigate = useNavigate();
 
 
   useEffect(() => { 

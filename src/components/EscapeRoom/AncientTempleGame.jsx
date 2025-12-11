@@ -11,6 +11,7 @@ import {
 } from "react-icons/fa";
 import QuizFinished from "./QuizFinished";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const AncientTempleGame = () => {
   const [currentPuzzle, setCurrentPuzzle] = useState(0);
@@ -22,6 +23,7 @@ const AncientTempleGame = () => {
   const [timer, setTimer] = useState(0);
 
   const templePuzzles = useSelector((store) => store.escapeRoom.questions);
+  const navigate = useNavigate();   
 
   useEffect(() => { 
     if (templePuzzles.length === 0) {

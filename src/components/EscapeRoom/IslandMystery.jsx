@@ -12,6 +12,7 @@ import {
 } from "react-icons/fa";
 import QuizFinished from "./QuizFinished";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const IslandMysteryGame = () => {
   const [currentPuzzle, setCurrentPuzzle] = useState(0);
@@ -23,6 +24,7 @@ const IslandMysteryGame = () => {
   const [timer, setTimer] = useState(0);
 
   const islandPuzzles = useSelector((store) => store.escapeRoom.questions);
+  const navigate = useNavigate();
 
   useEffect(() => { 
     if (islandPuzzles.length === 0) {
