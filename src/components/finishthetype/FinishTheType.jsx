@@ -59,9 +59,9 @@ const FinishTheTypes = () => {
 
   const handleCategoryClick = async (subcategory) => {
     dispatch(setSubCategory(subcategory));
-    navigate(`/quiz-type/finish/${subcategory}`);
     const data = await fetchQuestionsByFinishCategory(subcategory);
     dispatch(setQuestions(data));
+    navigate(`/quiz-type/finish/${subcategory}`);
   };
 
   return (
