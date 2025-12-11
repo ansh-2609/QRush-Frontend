@@ -13,6 +13,18 @@ const FinishTheTypeContent = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+
+  useEffect(() => { 
+    if (finishQuiz.questions.length === 0) {
+      navigate("/quiz-type/finish");
+    }
+  }, [finishQuiz.questions, navigate]);
+
+  
+  if (finishQuiz.questions.length === 0) {
+    return null; 
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);

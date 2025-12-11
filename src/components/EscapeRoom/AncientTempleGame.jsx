@@ -23,6 +23,17 @@ const AncientTempleGame = () => {
 
   const templePuzzles = useSelector((store) => store.escapeRoom.questions);
 
+  useEffect(() => { 
+    if (templePuzzles.length === 0) {
+      navigate("/quiz-type/escape-room");
+    }
+  }, [templePuzzles, navigate]);
+
+  
+  if (templePuzzles.length === 0) {
+    return null; 
+  }
+
   // Timer
   useEffect(() => {
     if (gameStatus === "completed") return; 

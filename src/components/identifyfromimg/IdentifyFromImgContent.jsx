@@ -15,10 +15,22 @@ const IdentifyFromImgContent = () => {
   const [selectedAnswer, setSelectedAnswer] = useState("");
   const [showResult, setShowResult] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
-  const [lives, setLives] = useState(3);
+  const [lives, setLives] = useState(3); 
   const [score, setScore] = useState(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [usedHint, setUsedHint] = useState(false);
+
+
+  useEffect(() => { 
+    if (imageQuizs.questions.length === 0) {
+      navigate("/quiz-type/identify");
+    }
+  }, [imageQuizs.questions, navigate]);
+
+  
+  if (imageQuizs.questions.length === 0) {
+    return null; 
+  }
 
 
   const options = [

@@ -23,6 +23,18 @@ const LockedLaboratoryGame = () => {
 
   const labPuzzles = useSelector((store) => store.escapeRoom.questions);
 
+
+  useEffect(() => { 
+    if (labPuzzles.length === 0) {
+      navigate("/quiz-type/escape-room");
+    }
+  }, [labPuzzles, navigate]);
+
+  
+  if (labPuzzles.length === 0) {
+    return null; 
+  }
+
   // Timer
   useEffect(() => {
     if (gameStatus === "completed") return; 

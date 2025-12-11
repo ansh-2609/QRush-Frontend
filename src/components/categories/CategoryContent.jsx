@@ -12,16 +12,16 @@ const CategoryContent = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // 🔥 Redirect on refresh or if quiz state is empty
-  useEffect(() => {
+  
+  useEffect(() => { 
     if (quizs.questions.length === 0) {
       navigate("/categories");
     }
   }, [quizs.questions, navigate]);
 
-  // ⏳ If no questions, don't render QuestionCard
+  
   if (quizs.questions.length === 0) {
-    return null; // Or a small message while redirecting
+    return null; 
   }
 
   return (

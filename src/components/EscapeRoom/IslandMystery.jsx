@@ -24,7 +24,16 @@ const IslandMysteryGame = () => {
 
   const islandPuzzles = useSelector((store) => store.escapeRoom.questions);
 
+  useEffect(() => { 
+    if (islandPuzzles.length === 0) {
+      navigate("/quiz-type/escape-room");
+    }
+  }, [islandPuzzles, navigate]);
+
   
+  if (islandPuzzles.length === 0) {
+    return null; 
+  }
  // Timer
   useEffect(() => {
     if (gameStatus === "completed") return; 
